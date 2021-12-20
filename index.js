@@ -36,7 +36,6 @@ function updateState(keyword) {
     }).then(() => {
         main.append(renderMainSections(keyword))
     })
-
 }
 
 // Update State Single Movie ID from Server
@@ -44,8 +43,10 @@ function getSingleMovieInfo(movieID) {
     getSingleMovieData(movieID).then(function(item) {
         state.movie = item
     }).then(() => {
+        render()
         main.append(renderSingleMovie(state.movie))
     })
+
 }
 
 // Render Functions 
@@ -62,10 +63,7 @@ function renderMoviesList(movie) {
     movieLiEl.append(moviePoster, movieTitle)
 
     movieLiEl.addEventListener('click', () => {
-        console.log(state)
         getSingleMovieInfo(movie.id)
-        render()
-
     })
 
     return movieLiEl
@@ -120,24 +118,14 @@ function renderMain() {
         for (const keyword of state.keyword) {
             updateState(keyword)
         }
-    } else {
-        getSingleMovieInfo(state.movie.id)
     }
 }
 
-
-
-
-
-
-
 function render() {
     body.innerHTML = ""
-
     renderMain()
     body.append(header, main, footer)
 }
-
 
 function init() {
     render()
