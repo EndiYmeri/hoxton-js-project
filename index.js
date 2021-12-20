@@ -38,10 +38,13 @@ function movieList() {
     for (const movie of state.movies) {
         const movieLiEl = document.createElement('li')
         const movieTitle = document.createElement('h2')
+        const moviePoster = document.createElement(`img`)
+        moviePoster.setAttribute(`class`, `smallPosters`)
+        moviePoster.setAttribute(`src`, `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
 
         movieTitle.textContent = movie.title
 
-        movieLiEl.append(movieTitle)
+        movieLiEl.append(moviePoster, movieTitle)
 
         movieLiEl.addEventListener('click', () => {
             getSingleMovieInfo(movie.id)
