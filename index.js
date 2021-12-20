@@ -1,68 +1,106 @@
 const state = {
     movies: [],
     movie: null,
-    keyword: "upcoming"
+    keyword: ["upcoming", "popular", "top_rated"]
+
 }
 
 
 
+const header = document.createElement(`header`)
+const footer = document.createElement(`footer`)
+const main = document.createElement('main')
+const body = document.querySelector(`body`)
 
 
+// Server Functions
 function getData(keyword) {
-
-    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
         return resp.json()
     })
 }
 
-
+// Get Single Movie Information
 function getSingleMovieData(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
         return resp.json()
     })
 }
 
 
+// Update state.movies for each keyword on get Data and then render the Main Sections for each keyword
+function updateState(keyword) {
+    return getData(keyword).then(function(item) {
+        state.movies = item.results
 
-function getPopularMovies() {
-    let popular = "popular"
-    getData(popular)
-    state.keyword
-    render()
+    }).then(() => {
+        main.append(renderMainSections(keyword))
+    })
+
 }
 
+// Update State Single Movie ID from Server
+function getSingleMovieInfo(movieID) {
+    getSingleMovieData(movieID).then(function(item) {
+        state.movie = item
+    }).then(() => {
+        main.append(renderSingleMovie(state.movie))
+    })
+}
 
-function movieList() {
+// Render Functions 
+// Render Movies List
+function renderMoviesList(movie) {
+    const movieLiEl = document.createElement('li')
+    const movieTitle = document.createElement('h2')
+    const moviePoster = document.createElement(`img`)
+    moviePoster.setAttribute(`class`, `smallPosters`)
+    moviePoster.setAttribute(`src`, `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
+
+    movieTitle.textContent = movie.title
+
+    movieLiEl.append(moviePoster, movieTitle)
+
+    movieLiEl.addEventListener('click', () => {
+        console.log(state)
+        getSingleMovieInfo(movie.id)
+        render()
+
+    })
+
+    return movieLiEl
+}
+
+// Render Main Sections
+function renderMainSections(keyword) {
+    const sectionEl = document.createElement('section')
+
+    const sectionTitle = document.createElement('h1')
+    sectionTitle.setAttribute('class', 'section-title')
+    if (keyword === "popular") {
+        sectionTitle.textContent = "Popular"
+    }
+    if (keyword === "upcoming") {
+        sectionTitle.textContent = "Upcoming"
+    }
+    if (keyword === "top_rated") {
+        sectionTitle.textContent = "Top Rated"
+    }
+
     const ulEl = document.createElement('ul')
 
     for (const movie of state.movies) {
-        const movieLiEl = document.createElement('li')
-        const movieTitle = document.createElement('h2')
-        const moviePoster = document.createElement(`img`)
-        moviePoster.setAttribute(`class`, `smallPosters`)
-        moviePoster.setAttribute(`src`, `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
-
-        movieTitle.textContent = movie.title
-
-        movieLiEl.append(moviePoster, movieTitle)
-
-        movieLiEl.addEventListener('click', () => {
-            getSingleMovieInfo(movie.id)
-            render()
-        })
-
-        ulEl.append(movieLiEl)
+        ulEl.append(renderMoviesList(movie))
     }
+    sectionEl.append(sectionTitle, ulEl)
 
-    return ulEl
+    return sectionEl
 }
 
-
+// Render Single Movie
 function renderSingleMovie(movie) {
     const articleEl = document.createElement('article')
-
     const moviePoster = document.createElement('img')
-
     moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
 
     const movieInfo = document.createElement('div')
@@ -72,59 +110,41 @@ function renderSingleMovie(movie) {
     movieInfo.append(movieTitle)
 
     articleEl.append(moviePoster, movieInfo)
-    return articleEl
+    main.append(articleEl)
 }
 
-
-const header = document.createElement(`header`)
-
-
-const footer = document.createElement(`footer`)
-
-const body = document.querySelector(`body`)
-
-
+// Render Main depending on state and state.keyword
 function renderMain() {
-    const main = document.createElement(`main`)
-
+    main.innerHTML = ""
     if (!state.movie) {
-        main.append(movieList())
+        for (const keyword of state.keyword) {
+            updateState(keyword)
+        }
+    } else {
+        getSingleMovieInfo(state.movie.id)
     }
-    else {
-        main.append(renderSingleMovie(state.movie))
-    }
-
-    return main
 }
 
 
 
-function getSingleMovieInfo(movieID) {
-    getSingleMovieData(movieID).then(function (item) {
-        state.movie = item
-    })
-}
+
+
 
 
 function render() {
-    body.innerHTML = ``
-    body.append(header, renderMain(), footer)
+    body.innerHTML = ""
+
+    renderMain()
+    body.append(header, main, footer)
 }
-
-
 
 
 function init() {
-    getData(state.keyword).then(function (item) {
-        state.movies = item.results
-    })
+    render()
 
-    setTimeout(function () {
-        render()
-    }, 300)
+    // setTimeout(function() {
+    //     render()
+    // }, 2000)
 
 }
 init()
-
-
-
