@@ -15,14 +15,14 @@ const body = document.querySelector(`body`)
 
 // Server Functions
 function getData(keyword) {
-    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
         return resp.json()
     })
 }
 
 // Get Single Movie Information
 function getSingleMovieData(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
         return resp.json()
     })
 }
@@ -30,29 +30,29 @@ function getSingleMovieData(movieID) {
 
 // Update state.movies for each keyword on get Data and then render the Main Sections for each keyword
 function updateState(keyword) {
-    return getData(keyword).then(function(item) {
+    return getData(keyword).then(function (item) {
         state.movies = item.results
 
     }).then(() => {
         main.append(renderMainSections(keyword))
     })
-
 }
 
 // Update State Single Movie ID from Server
 function getSingleMovieInfo(movieID) {
-    getSingleMovieData(movieID).then(function(item) {
+    getSingleMovieData(movieID).then(function (item) {
         state.movie = item
     }).then(() => {
-        main.append(renderSingleMovie(state.movie))
+        render()
     })
+
 }
 
 // Render Functions 
 // Render Movies List
 function renderMoviesList(movie) {
     const movieLiEl = document.createElement('li')
-    const movieTitle = document.createElement('h2')
+    const movieTitle = document.createElement('h3')
     const moviePoster = document.createElement(`img`)
     moviePoster.setAttribute(`class`, `smallPosters`)
     moviePoster.setAttribute(`src`, `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
@@ -62,13 +62,20 @@ function renderMoviesList(movie) {
     movieLiEl.append(moviePoster, movieTitle)
 
     movieLiEl.addEventListener('click', () => {
-        console.log(state)
         getSingleMovieInfo(movie.id)
-        render()
-
     })
 
     return movieLiEl
+}
+
+// Render Header
+
+function renderHeader() {
+    header.innerHTML = ``
+    const logo = document.createElement(`h1`)
+    logo.setAttribute(`class`, `logo`)
+    logo.textContent = `GOVIE MEEKS`
+    header.append(logo)
 }
 
 // Render Main Sections
@@ -101,6 +108,7 @@ function renderMainSections(keyword) {
 function renderSingleMovie(movie) {
     const articleEl = document.createElement('article')
     const moviePoster = document.createElement('img')
+    moviePoster.setAttribute(`class`, `infoPoster`)
     moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
 
     const movieInfo = document.createElement('div')
@@ -116,28 +124,25 @@ function renderSingleMovie(movie) {
 // Render Main depending on state and state.keyword
 function renderMain() {
     main.innerHTML = ""
+    console.log(main)
+
     if (!state.movie) {
         for (const keyword of state.keyword) {
             updateState(keyword)
         }
     } else {
-        getSingleMovieInfo(state.movie.id)
+        main.append(renderSingleMovie(state.movie))
+        main.lastChild.remove()
     }
+
 }
-
-
-
-
-
-
 
 function render() {
     body.innerHTML = ""
-
+    renderHeader()
     renderMain()
     body.append(header, main, footer)
 }
-
 
 function init() {
     render()

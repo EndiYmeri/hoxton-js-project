@@ -1,24 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Playfair+Display&family=Roboto:wght@100;400;500&display=swap');
+
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     list-style: none;
+    font-family: 'Roboto', sans-serif;
 }
 
-h2{
+body{
+    background-color: #242325;
+}
+
+header{
+    width: 100%;
+    height: auto;
+    background-color: black;
+    display: grid;
+    grid-auto-flow: column;
+}
+
+h1{
+    padding: .5rem;
+    color: #E9ECEF;
+}
+
+h3{
     cursor: pointer;
+    color: #E9ECEF;
+    font-weight: normal;
+    padding-top: .5rem;
 }
 
 main{
     width: 100vw;
 }
 
-ul{
-    display: grid;
-    grid-auto-flow: column;
+li{
+    padding: .5rem;
 }
 
 .smallPosters{
-    width: 10rem;
+    border: 1px solid black;
+    border-radius: .5rem;
+    width: 15rem;
     cursor: pointer;
+    transition: .3s ease-in-out;
+    box-shadow: .2px 4px 5px rgba(0, 0, 0, 0.5);
+    object-fit: cover;
+}
+
+.smallPosters:hover{
+    border-radius: 1rem;
+    transform: scale(.9);
+}
+
+ul{
+    display: grid;
+    overflow-x: auto;
+    grid-auto-flow: column;
 }
