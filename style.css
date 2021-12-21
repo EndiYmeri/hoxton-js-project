@@ -54,6 +54,16 @@ li{
     padding: .5rem;
 }
 
+p{
+    color: white;
+    text-align: justify;
+    font-size: 1rem;
+    line-height: 1.6;
+    display: grid;
+    grid-template-columns: minmax(50ch, 55ch);
+    align-items: center;
+}
+
 .smallPosters{
     border: 1px solid black;
     border-radius: .5rem;
@@ -73,4 +83,29 @@ ul{
     display: grid;
     overflow-x: auto;
     grid-auto-flow: column;
+}
+
+.infoPoster{
+    width: 350px;
+}
+
+.singleMovie{
+    padding-left: 12rem;
+    padding-top: 5rem;
+    
+}
+
+.infoGroup{
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: start;
+}
+
+.movieData{
+    padding-left: 15rem;
+    padding-top: 14rem;
+}
+
+.plot{
+    padding-top: 2rem;
 }

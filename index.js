@@ -72,10 +72,12 @@ function renderMoviesList(movie) {
 
 function renderHeader() {
     header.innerHTML = ``
+    const divEl = document.createElement(`div`)
     const logo = document.createElement(`h1`)
     logo.setAttribute(`class`, `logo`)
     logo.textContent = `GOVIE MEEKS`
-    header.append(logo)
+    divEl.append(logo)
+    header.append(divEl)
 }
 
 // Render Main Sections
@@ -84,6 +86,7 @@ function renderMainSections(keyword) {
 
     const sectionTitle = document.createElement('h1')
     sectionTitle.setAttribute('class', 'section-title')
+
     if (keyword === "popular") {
         sectionTitle.textContent = "Popular"
     }
@@ -104,27 +107,55 @@ function renderMainSections(keyword) {
     return sectionEl
 }
 
+
 // Render Single Movie
 function renderSingleMovie(movie) {
+    const divEl = document.createElement(`div`)
+    divEl.setAttribute(`class`, `infoGroup`)
     const articleEl = document.createElement('article')
+    articleEl.setAttribute(`class`, `singleMovie`)
     const moviePoster = document.createElement('img')
     moviePoster.setAttribute(`class`, `infoPoster`)
     moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
 
+    moviePoster.addEventListener(`click`, function () {
+        moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`)
+    })
+
     const movieInfo = document.createElement('div')
     movieTitle = document.createElement('h1')
     movieTitle.textContent = movie.title
-
     movieInfo.append(movieTitle)
 
+    const secondArticle = document.createElement(`article`)
+    secondArticle.setAttribute(`class`, `movieData`)
+
+    const releaseDate = document.createElement(`h3`)
+    releaseDate.textContent = `Release Date: ${movie.release_date}`
+
+    const voteAverage = document.createElement(`h3`)
+    voteAverage.textContent = `Vote Average: ${movie.vote_average}`
+
+    const runTime = document.createElement(`h3`)
+    runTime.textContent = `Runtime: ${movie.runtime} min`
+
+    const plot = document.createElement(`h3`)
+    plot.setAttribute(`class`, `plot`)
+    plot.textContent = `Plot:`
+
+    const overview = document.createElement(`p`)
+    overview.textContent = movie.overview
+
+
     articleEl.append(moviePoster, movieInfo)
-    main.append(articleEl)
+    secondArticle.append(releaseDate, voteAverage, runTime, plot, overview)
+    divEl.append(articleEl, secondArticle)
+    main.append(divEl)
 }
 
 // Render Main depending on state and state.keyword
 function renderMain() {
     main.innerHTML = ""
-    console.log(main)
 
     if (!state.movie) {
         for (const keyword of state.keyword) {
