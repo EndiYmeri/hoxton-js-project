@@ -37,7 +37,8 @@ function checkIfUserExists(username, pass) {
         respArray.forEach((user) => {
             if (user.userName === username && user.password === pass) {
                 userExists = true
-                console.log("User Exists:" + user.userName + " with password: " + user.password)
+                state.user = user
+                    // console.log("User Exists:" + user.userName + " with password: " + user.password)
             }
         })
 
