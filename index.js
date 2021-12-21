@@ -44,7 +44,6 @@ function getSingleMovieInfo(movieID) {
         state.movie = item
     }).then(() => {
         render()
-        main.append(renderSingleMovie(state.movie))
     })
 
 }
@@ -114,11 +113,17 @@ function renderSingleMovie(movie) {
 // Render Main depending on state and state.keyword
 function renderMain() {
     main.innerHTML = ""
+    console.log(main)
+
     if (!state.movie) {
         for (const keyword of state.keyword) {
             updateState(keyword)
         }
+    } else {
+        main.append(renderSingleMovie(state.movie))
+        main.lastChild.remove()
     }
+
 }
 
 function render() {
