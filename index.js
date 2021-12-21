@@ -124,6 +124,7 @@ function renderSingleMovie(movie) {
 
     const movieInfo = document.createElement('div')
     movieTitle = document.createElement('h1')
+    movieTitle.setAttribute(`class`, `movieTitle`)
     movieTitle.textContent = movie.title
     movieInfo.append(movieTitle)
 
@@ -147,8 +148,8 @@ function renderSingleMovie(movie) {
     overview.textContent = movie.overview
 
 
-    articleEl.append(moviePoster, movieInfo)
-    secondArticle.append(releaseDate, voteAverage, runTime, plot, overview)
+    articleEl.append(moviePoster)
+    secondArticle.append(movieInfo, releaseDate, voteAverage, runTime, plot, overview)
     divEl.append(articleEl, secondArticle)
     main.append(divEl)
 }

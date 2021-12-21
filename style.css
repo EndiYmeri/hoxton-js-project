@@ -101,9 +101,16 @@ ul{
     justify-content: start;
 }
 
+.movieTitle{
+    font-weight: bolder;
+    padding-bottom: 3rem;
+    padding-left: 7rem;
+    color: rgb(136, 41, 41);
+}
+
 .movieData{
     padding-left: 15rem;
-    padding-top: 14rem;
+    padding-top: 12rem;
 }
 
 .plot{
