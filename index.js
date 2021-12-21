@@ -157,7 +157,6 @@ function renderSingleMovie(movie) {
 // Render Main depending on state and state.keyword
 function renderMain() {
     main.innerHTML = ""
-
     if (!state.movie) {
         for (const keyword of state.keyword) {
             updateState(keyword)
