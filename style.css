@@ -1,6 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Playfair+Display&family=Roboto:wght@100;400;500&display=swap');
-
-
 * {
     margin: 0;
     padding: 0;
@@ -11,50 +9,51 @@
 
 *::-webkit-scrollbar {
     width: 7px;
-  }
-  
-  *::-webkit-scrollbar-track {
-    background: #242325; 
-  }
-   
-  *::-webkit-scrollbar-thumb {
+}
+
+*::-webkit-scrollbar-track {
+    background: #242325;
+}
+
+*::-webkit-scrollbar-thumb {
     background: #242325;
     border-radius: 10rem;
-  }
+}
 
-body{
+body {
     background-color: #242325;
 }
 
-header{
+header {
     width: 100%;
     height: auto;
     background-color: black;
     display: grid;
     grid-auto-flow: column;
+    padding: 1rem 2rem;
 }
 
-h1{
+h1 {
     padding: .5rem;
     color: #E9ECEF;
 }
 
-h3{
+h3 {
     cursor: pointer;
     color: #E9ECEF;
     font-weight: normal;
     padding-top: .5rem;
 }
 
-main{
+main {
     width: 100vw;
 }
 
-li{
+li {
     padding: .5rem;
 }
 
-p{
+p {
     color: white;
     text-align: justify;
     font-size: 1rem;
@@ -64,7 +63,7 @@ p{
     align-items: center;
 }
 
-.smallPosters{
+.smallPosters {
     border: 1px solid black;
     border-radius: .5rem;
     width: 15rem;
@@ -74,45 +73,74 @@ p{
     object-fit: cover;
 }
 
-.smallPosters:hover{
+.smallPosters:hover {
     border-radius: 1rem;
     transform: scale(.9);
 }
 
-ul{
+ul {
     display: grid;
     overflow-x: auto;
     grid-auto-flow: column;
 }
 
-.infoPoster{
+.infoPoster {
     width: 350px;
 }
 
-.singleMovie{
-    padding-left: 12rem;
-    padding-top: 5rem;
-    
-}
-
-.infoGroup{
+.infoGroup {
     display: grid;
-    grid-auto-flow: column;
-    justify-content: start;
+    grid-template-columns: auto auto;
+    justify-content: center;
+    gap: 1rem;
 }
 
-.movieTitle{
+.singleMovie {
+    /* padding-left: 12rem; */
+    /* padding-top: 5rem; */
+    place-content: center;
+    padding: 2rem;
+}
+
+.movieData {
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+}
+
+.movieTitle {
     font-weight: bolder;
-    padding-bottom: 3rem;
-    padding-left: 7rem;
+    margin-bottom: 3rem;
+    /* padding-left: 7rem; */
     color: rgb(136, 41, 41);
 }
 
-.movieData{
-    padding-left: 15rem;
-    padding-top: 12rem;
+.plot {
+    margin-top: 2rem;
 }
 
-.plot{
-    padding-top: 2rem;
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    padding: 3rem;
+    color: white;
+    border-radius: 10px;
+}
+
+.modal form {
+    margin-top: 20px;
+    display: grid;
+    place-items: center;
+    gap: 20px;
+}
+
+.modal input {
+    font-size: 1.2rem;
+    padding: .5rem 1rem;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #242325;
 }

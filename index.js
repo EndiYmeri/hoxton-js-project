@@ -1,11 +1,10 @@
 const state = {
     movies: [],
     movie: null,
-    keyword: ["upcoming", "popular", "top_rated"]
-
+    keyword: ["upcoming", "popular", "top_rated"],
+    signedIn: false,
+    user: {},
 }
-
-
 
 const header = document.createElement(`header`)
 const footer = document.createElement(`footer`)
@@ -15,14 +14,81 @@ const body = document.querySelector(`body`)
 
 // Server Functions
 function getData(keyword) {
-    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
         return resp.json()
+    })
+}
+
+
+function getUsers() {
+    return fetch('http://localhost:3000/users').then((resp) => {
+        console.log(resp.users)
+        return resp.json();
+    })
+
+}
+
+function checkIfUserExists(username, pass) {
+    let userExists = false
+
+    getUsers().then((resp) => {
+        let respArray = [...resp]
+
+        respArray.forEach((user) => {
+            if (user.userName === username && user.password === pass) {
+                userExists = true
+                console.log("User Exists:" + user.userName + " with password: " + user.password)
+            }
+        })
+
+        if (!userExists) {
+            addUserToDB(addNewUser(username, pass))
+        }
+    })
+}
+
+
+function addNewUser(userName, password) {
+    let user = {}
+    user.userName = userName
+    user.password = password
+    user.minutesWatched = 0
+
+    state.user = user
+    return user
+}
+
+
+function addUserToDB(user) {
+
+    fetch('http://localhost:3000/users', {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            userName: user.userName,
+            password: user.password,
+            minutesWatched: user.minutesWatched
+        })
+    })
+}
+
+function updateUserInfo(id, minutes) {
+    return fetch(`http://localhost:3000/users${id}`, {
+        method: "PATCH",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            minutesWatched: minutes
+        })
     })
 }
 
 // Get Single Movie Information
 function getSingleMovieData(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
         return resp.json()
     })
 }
@@ -30,7 +96,7 @@ function getSingleMovieData(movieID) {
 
 // Update state.movies for each keyword on get Data and then render the Main Sections for each keyword
 function updateState(keyword) {
-    return getData(keyword).then(function (item) {
+    getData(keyword).then(function(item) {
         state.movies = item.results
 
     }).then(() => {
@@ -40,7 +106,7 @@ function updateState(keyword) {
 
 // Update State Single Movie ID from Server
 function getSingleMovieInfo(movieID) {
-    getSingleMovieData(movieID).then(function (item) {
+    getSingleMovieData(movieID).then(function(item) {
         state.movie = item
     }).then(() => {
         render()
@@ -77,7 +143,11 @@ function renderHeader() {
     logo.setAttribute(`class`, `logo`)
     logo.textContent = `GOVIE MEEKS`
     divEl.append(logo)
-    header.append(divEl)
+
+    const accountDiv = document.createElement('div')
+    accountDiv.setAttribute('class', 'account-info')
+
+    header.append(divEl, accountDiv)
 }
 
 // Render Main Sections
@@ -118,7 +188,7 @@ function renderSingleMovie(movie) {
     moviePoster.setAttribute(`class`, `infoPoster`)
     moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
 
-    moviePoster.addEventListener(`click`, function () {
+    moviePoster.addEventListener(`click`, function() {
         moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`)
     })
 
@@ -147,13 +217,65 @@ function renderSingleMovie(movie) {
     const overview = document.createElement(`p`)
     overview.textContent = movie.overview
 
-
     articleEl.append(moviePoster)
     secondArticle.append(movieInfo, releaseDate, voteAverage, runTime, plot, overview)
     divEl.append(articleEl, secondArticle)
     main.append(divEl)
 }
 
+function renderSignInModal() {
+    const modalDiv = document.createElement('div')
+    modalDiv.setAttribute('class', 'modal')
+
+    const modalTitle = document.createElement('h2')
+
+
+    if (!state.signedIn) {
+        modalTitle.textContent = "SIGN IN"
+        const formEl = document.createElement('form')
+        const inputNameEl = document.createElement('input')
+        inputNameEl.setAttribute('type', 'text')
+        inputNameEl.setAttribute('name', 'username')
+        inputNameEl.setAttribute('placeholder', 'Write username')
+
+        const inputPasswordEl = document.createElement('input')
+        inputPasswordEl.setAttribute('type', 'password')
+        inputPasswordEl.setAttribute('name', 'password')
+        inputPasswordEl.setAttribute('placeholder', 'Write password')
+
+        const signInButton = document.createElement('button')
+        signInButton.setAttribute('type', 'submit')
+        signInButton.setAttribute('class', 'button sign-in-button')
+        signInButton.textContent = "SIGN IN"
+
+        formEl.addEventListener('submit', (e) => {
+            e.preventDefault()
+            state.signedIn = true
+            checkIfUserExists(inputNameEl.value, inputPasswordEl.value)
+            render()
+        })
+
+        formEl.append(inputNameEl, inputPasswordEl, signInButton)
+        modalDiv.append(modalTitle, formEl)
+
+    } else {
+        modalTitle.textContent = "SIGN OUT"
+
+        const signOutP = document.createElement('p')
+        signOutP.textContent = `Hello ${state.user.userName}, would you like to sign out?`
+
+        const signOutButton = document.createElement('button')
+        signOutButton.setAttribute('class', 'button sign-out-button')
+        signOutButton.textContent = "SIGN OUT"
+        signOutButton.addEventListener('click', () => {
+            state.signedIn = false
+            render()
+        })
+        modalDiv.append(modalTitle, signOutP, signOutButton)
+    }
+
+    body.append(modalDiv)
+}
 // Render Main depending on state and state.keyword
 function renderMain() {
     main.innerHTML = ""
@@ -177,10 +299,5 @@ function render() {
 
 function init() {
     render()
-
-    // setTimeout(function() {
-    //     render()
-    // }, 2000)
-
 }
 init()
