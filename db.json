@@ -4,37 +4,595 @@
       "id": 1,
       "userName": "Endi",
       "password": "endi",
-      "minutesWatched": 0
+      "minutesWatched": 583,
+      "moviesWatched": [
+        {
+          "adult": false,
+          "backdrop_path": "/eENEf62tMXbhyVvdcXlnQz2wcuT.jpg",
+          "belongs_to_collection": {
+            "id": 558216,
+            "name": "Venom Collection",
+            "poster_path": "/670x9sf0Ru8y6ezBggmYudx61yB.jpg",
+            "backdrop_path": "/rhLspFB1B8ZCkWEHFYmc3NKagzq.jpg"
+          },
+          "budget": 110000000,
+          "genres": [
+            {
+              "id": 878,
+              "name": "Science Fiction"
+            },
+            {
+              "id": 28,
+              "name": "Action"
+            },
+            {
+              "id": 12,
+              "name": "Adventure"
+            }
+          ],
+          "homepage": "https://www.venom.movie",
+          "id": 580489,
+          "imdb_id": "tt7097896",
+          "original_language": "en",
+          "original_title": "Venom: Let There Be Carnage",
+          "overview": "After finding a host body in investigative reporter Eddie Brock, the alien symbiote must face a new enemy, Carnage, the alter ego of serial killer Cletus Kasady.",
+          "popularity": 7992.617,
+          "poster_path": "/rjkmN1dniUHVYAtwuV3Tji7FsDO.jpg",
+          "production_companies": [
+            {
+              "id": 7505,
+              "logo_path": "/837VMM4wOkODc1idNxGT0KQJlej.png",
+              "name": "Marvel Entertainment",
+              "origin_country": "US"
+            },
+            {
+              "id": 5,
+              "logo_path": "/71BqEFAF4V3qjjMPCpLuyJFB9A.png",
+              "name": "Columbia Pictures",
+              "origin_country": "US"
+            },
+            {
+              "id": 84041,
+              "logo_path": "/nw4kyc29QRpNtFbdsBHkRSFavvt.png",
+              "name": "Pascal Pictures",
+              "origin_country": "US"
+            },
+            {
+              "id": 53462,
+              "logo_path": null,
+              "name": "Matt Tolmach Productions",
+              "origin_country": "US"
+            },
+            {
+              "id": 166230,
+              "logo_path": null,
+              "name": "Avi Arad Productions",
+              "origin_country": "US"
+            }
+          ],
+          "production_countries": [
+            {
+              "iso_3166_1": "US",
+              "name": "United States of America"
+            }
+          ],
+          "release_date": "2021-09-30",
+          "revenue": 493000000,
+          "runtime": 97,
+          "spoken_languages": [
+            {
+              "english_name": "English",
+              "iso_639_1": "en",
+              "name": "English"
+            },
+            {
+              "english_name": "Spanish",
+              "iso_639_1": "es",
+              "name": "Español"
+            }
+          ],
+          "status": "Released",
+          "tagline": "",
+          "title": "Venom: Let There Be Carnage",
+          "video": false,
+          "vote_average": 7.2,
+          "vote_count": 4904
+        },
+        {
+          "adult": false,
+          "backdrop_path": "/5hNcsnMkwU2LknLoru73c76el3z.jpg",
+          "belongs_to_collection": null,
+          "budget": 13200000,
+          "genres": [
+            {
+              "id": 35,
+              "name": "Comedy"
+            },
+            {
+              "id": 18,
+              "name": "Drama"
+            },
+            {
+              "id": 10749,
+              "name": "Romance"
+            }
+          ],
+          "homepage": "",
+          "id": 19404,
+          "imdb_id": "tt0112870",
+          "original_language": "hi",
+          "original_title": "दिलवाले दुल्हनिया ले जायेंगे",
+          "overview": "Raj is a rich, carefree, happy-go-lucky second generation NRI. Simran is the daughter of Chaudhary Baldev Singh, who in spite of being an NRI is very strict about adherence to Indian values. Simran has left for India to be married to her childhood fiancé. Raj leaves for India with a mission at his hands, to claim his lady love under the noses of her whole family. Thus begins a saga.",
+          "popularity": 25.934,
+          "poster_path": "/2CAL2433ZeIihfX1Hb2139CX0pW.jpg",
+          "production_companies": [
+            {
+              "id": 1569,
+              "logo_path": "/lvzN86o3jrP44DIvn4SMBLOl9PF.png",
+              "name": "Yash Raj Films",
+              "origin_country": "IN"
+            }
+          ],
+          "production_countries": [
+            {
+              "iso_3166_1": "IN",
+              "name": "India"
+            }
+          ],
+          "release_date": "1995-10-20",
+          "revenue": 100000000,
+          "runtime": 190,
+          "spoken_languages": [
+            {
+              "english_name": "Hindi",
+              "iso_639_1": "hi",
+              "name": "हिन्दी"
+            }
+          ],
+          "status": "Released",
+          "tagline": "Come Fall In love, All Over Again..",
+          "title": "Dilwale Dulhania Le Jayenge",
+          "video": false,
+          "vote_average": 8.7,
+          "vote_count": 3289
+        },
+        {
+          "adult": false,
+          "backdrop_path": "/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg",
+          "belongs_to_collection": {
+            "id": 531241,
+            "name": "Spider-Man (Avengers) Collection",
+            "poster_path": "/nogV4th2P5QWYvQIMiWHj4CFLU9.jpg",
+            "backdrop_path": "/AvnqpRwlEaYNVL6wzC4RN94EdSd.jpg"
+          },
+          "budget": 200000000,
+          "genres": [
+            {
+              "id": 28,
+              "name": "Action"
+            },
+            {
+              "id": 12,
+              "name": "Adventure"
+            },
+            {
+              "id": 878,
+              "name": "Science Fiction"
+            }
+          ],
+          "homepage": "https://www.spidermannowayhome.movie",
+          "id": 634649,
+          "imdb_id": "tt10872600",
+          "original_language": "en",
+          "original_title": "Spider-Man: No Way Home",
+          "overview": "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
+          "popularity": 20686.826,
+          "poster_path": "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+          "production_companies": [
+            {
+              "id": 420,
+              "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
+              "name": "Marvel Studios",
+              "origin_country": "US"
+            },
+            {
+              "id": 84041,
+              "logo_path": "/nw4kyc29QRpNtFbdsBHkRSFavvt.png",
+              "name": "Pascal Pictures",
+              "origin_country": "US"
+            },
+            {
+              "id": 5,
+              "logo_path": "/71BqEFAF4V3qjjMPCpLuyJFB9A.png",
+              "name": "Columbia Pictures",
+              "origin_country": "US"
+            }
+          ],
+          "production_countries": [
+            {
+              "iso_3166_1": "US",
+              "name": "United States of America"
+            }
+          ],
+          "release_date": "2021-12-15",
+          "revenue": 638000000,
+          "runtime": 148,
+          "spoken_languages": [
+            {
+              "english_name": "English",
+              "iso_639_1": "en",
+              "name": "English"
+            },
+            {
+              "english_name": "Tagalog",
+              "iso_639_1": "tl",
+              "name": ""
+            }
+          ],
+          "status": "Released",
+          "tagline": "The Multiverse unleashed.",
+          "title": "Spider-Man: No Way Home",
+          "video": false,
+          "vote_average": 8.6,
+          "vote_count": 1925
+        },
+        {
+          "adult": false,
+          "backdrop_path": "/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg",
+          "belongs_to_collection": {
+            "id": 531241,
+            "name": "Spider-Man (Avengers) Collection",
+            "poster_path": "/nogV4th2P5QWYvQIMiWHj4CFLU9.jpg",
+            "backdrop_path": "/AvnqpRwlEaYNVL6wzC4RN94EdSd.jpg"
+          },
+          "budget": 200000000,
+          "genres": [
+            {
+              "id": 28,
+              "name": "Action"
+            },
+            {
+              "id": 12,
+              "name": "Adventure"
+            },
+            {
+              "id": 878,
+              "name": "Science Fiction"
+            }
+          ],
+          "homepage": "https://www.spidermannowayhome.movie",
+          "id": 634649,
+          "imdb_id": "tt10872600",
+          "original_language": "en",
+          "original_title": "Spider-Man: No Way Home",
+          "overview": "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
+          "popularity": 20686.826,
+          "poster_path": "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+          "production_companies": [
+            {
+              "id": 420,
+              "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
+              "name": "Marvel Studios",
+              "origin_country": "US"
+            },
+            {
+              "id": 84041,
+              "logo_path": "/nw4kyc29QRpNtFbdsBHkRSFavvt.png",
+              "name": "Pascal Pictures",
+              "origin_country": "US"
+            },
+            {
+              "id": 5,
+              "logo_path": "/71BqEFAF4V3qjjMPCpLuyJFB9A.png",
+              "name": "Columbia Pictures",
+              "origin_country": "US"
+            }
+          ],
+          "production_countries": [
+            {
+              "iso_3166_1": "US",
+              "name": "United States of America"
+            }
+          ],
+          "release_date": "2021-12-15",
+          "revenue": 638000000,
+          "runtime": 148,
+          "spoken_languages": [
+            {
+              "english_name": "English",
+              "iso_639_1": "en",
+              "name": "English"
+            },
+            {
+              "english_name": "Tagalog",
+              "iso_639_1": "tl",
+              "name": ""
+            }
+          ],
+          "status": "Released",
+          "tagline": "The Multiverse unleashed.",
+          "title": "Spider-Man: No Way Home",
+          "video": false,
+          "vote_average": 8.6,
+          "vote_count": 1925
+        }
+      ],
+      "watchLater": []
     },
     {
-      "id": 2,
-      "userName": "Adriano",
-      "password": "adriano",
-      "minutesWatched": 0
+      "userName": "endiii",
+      "password": "edniii",
+      "minutesWatched": 148,
+      "moviesWatched": [
+        {
+          "adult": false,
+          "backdrop_path": "/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg",
+          "belongs_to_collection": {
+            "id": 531241,
+            "name": "Spider-Man (Avengers) Collection",
+            "poster_path": "/nogV4th2P5QWYvQIMiWHj4CFLU9.jpg",
+            "backdrop_path": "/AvnqpRwlEaYNVL6wzC4RN94EdSd.jpg"
+          },
+          "budget": 200000000,
+          "genres": [
+            {
+              "id": 28,
+              "name": "Action"
+            },
+            {
+              "id": 12,
+              "name": "Adventure"
+            },
+            {
+              "id": 878,
+              "name": "Science Fiction"
+            }
+          ],
+          "homepage": "https://www.spidermannowayhome.movie",
+          "id": 634649,
+          "imdb_id": "tt10872600",
+          "original_language": "en",
+          "original_title": "Spider-Man: No Way Home",
+          "overview": "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
+          "popularity": 20686.826,
+          "poster_path": "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+          "production_companies": [
+            {
+              "id": 420,
+              "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
+              "name": "Marvel Studios",
+              "origin_country": "US"
+            },
+            {
+              "id": 84041,
+              "logo_path": "/nw4kyc29QRpNtFbdsBHkRSFavvt.png",
+              "name": "Pascal Pictures",
+              "origin_country": "US"
+            },
+            {
+              "id": 5,
+              "logo_path": "/71BqEFAF4V3qjjMPCpLuyJFB9A.png",
+              "name": "Columbia Pictures",
+              "origin_country": "US"
+            }
+          ],
+          "production_countries": [
+            {
+              "iso_3166_1": "US",
+              "name": "United States of America"
+            }
+          ],
+          "release_date": "2021-12-15",
+          "revenue": 638000000,
+          "runtime": 148,
+          "spoken_languages": [
+            {
+              "english_name": "English",
+              "iso_639_1": "en",
+              "name": "English"
+            },
+            {
+              "english_name": "Tagalog",
+              "iso_639_1": "tl",
+              "name": ""
+            }
+          ],
+          "status": "Released",
+          "tagline": "The Multiverse unleashed.",
+          "title": "Spider-Man: No Way Home",
+          "video": false,
+          "vote_average": 8.6,
+          "vote_count": 1925
+        }
+      ],
+      "watchLater": [],
+      "id": 2
     },
     {
-      "userName": "saihdsad",
-      "password": "aishdashdid",
-      "minutesWatched": 0,
+      "userName": "endiiii",
+      "password": "eidniiansdad",
+      "minutesWatched": 148,
+      "moviesWatched": [
+        {
+          "adult": false,
+          "backdrop_path": "/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg",
+          "belongs_to_collection": {
+            "id": 531241,
+            "name": "Spider-Man (Avengers) Collection",
+            "poster_path": "/nogV4th2P5QWYvQIMiWHj4CFLU9.jpg",
+            "backdrop_path": "/AvnqpRwlEaYNVL6wzC4RN94EdSd.jpg"
+          },
+          "budget": 200000000,
+          "genres": [
+            {
+              "id": 28,
+              "name": "Action"
+            },
+            {
+              "id": 12,
+              "name": "Adventure"
+            },
+            {
+              "id": 878,
+              "name": "Science Fiction"
+            }
+          ],
+          "homepage": "https://www.spidermannowayhome.movie",
+          "id": 634649,
+          "imdb_id": "tt10872600",
+          "original_language": "en",
+          "original_title": "Spider-Man: No Way Home",
+          "overview": "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
+          "popularity": 20686.826,
+          "poster_path": "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+          "production_companies": [
+            {
+              "id": 420,
+              "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
+              "name": "Marvel Studios",
+              "origin_country": "US"
+            },
+            {
+              "id": 84041,
+              "logo_path": "/nw4kyc29QRpNtFbdsBHkRSFavvt.png",
+              "name": "Pascal Pictures",
+              "origin_country": "US"
+            },
+            {
+              "id": 5,
+              "logo_path": "/71BqEFAF4V3qjjMPCpLuyJFB9A.png",
+              "name": "Columbia Pictures",
+              "origin_country": "US"
+            }
+          ],
+          "production_countries": [
+            {
+              "iso_3166_1": "US",
+              "name": "United States of America"
+            }
+          ],
+          "release_date": "2021-12-15",
+          "revenue": 638000000,
+          "runtime": 148,
+          "spoken_languages": [
+            {
+              "english_name": "English",
+              "iso_639_1": "en",
+              "name": "English"
+            },
+            {
+              "english_name": "Tagalog",
+              "iso_639_1": "tl",
+              "name": ""
+            }
+          ],
+          "status": "Released",
+          "tagline": "The Multiverse unleashed.",
+          "title": "Spider-Man: No Way Home",
+          "video": false,
+          "vote_average": 8.6,
+          "vote_count": 1925
+        }
+      ],
+      "watchLater": [],
       "id": 3
     },
     {
-      "userName": "Endi",
-      "password": "",
+      "userName": "aksdnaindadas",
+      "password": "asidniasondasd",
       "minutesWatched": 0,
+      "moviesWatched": [],
+      "watchLater": [],
       "id": 4
     },
     {
-      "userName": "Endi",
-      "password": "Endi",
+      "userName": "Edniasndianda",
+      "password": "aisndiasndsand",
       "minutesWatched": 0,
+      "moviesWatched": [],
+      "watchLater": [
+        {
+          "adult": false,
+          "backdrop_path": "/1Rr5SrvHxMXHu5RjKpaMba8VTzi.jpg",
+          "belongs_to_collection": {
+            "id": 531241,
+            "name": "Spider-Man (Avengers) Collection",
+            "poster_path": "/nogV4th2P5QWYvQIMiWHj4CFLU9.jpg",
+            "backdrop_path": "/AvnqpRwlEaYNVL6wzC4RN94EdSd.jpg"
+          },
+          "budget": 200000000,
+          "genres": [
+            {
+              "id": 28,
+              "name": "Action"
+            },
+            {
+              "id": 12,
+              "name": "Adventure"
+            },
+            {
+              "id": 878,
+              "name": "Science Fiction"
+            }
+          ],
+          "homepage": "https://www.spidermannowayhome.movie",
+          "id": 634649,
+          "imdb_id": "tt10872600",
+          "original_language": "en",
+          "original_title": "Spider-Man: No Way Home",
+          "overview": "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
+          "popularity": 20686.826,
+          "poster_path": "/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+          "production_companies": [
+            {
+              "id": 420,
+              "logo_path": "/hUzeosd33nzE5MCNsZxCGEKTXaQ.png",
+              "name": "Marvel Studios",
+              "origin_country": "US"
+            },
+            {
+              "id": 84041,
+              "logo_path": "/nw4kyc29QRpNtFbdsBHkRSFavvt.png",
+              "name": "Pascal Pictures",
+              "origin_country": "US"
+            },
+            {
+              "id": 5,
+              "logo_path": "/71BqEFAF4V3qjjMPCpLuyJFB9A.png",
+              "name": "Columbia Pictures",
+              "origin_country": "US"
+            }
+          ],
+          "production_countries": [
+            {
+              "iso_3166_1": "US",
+              "name": "United States of America"
+            }
+          ],
+          "release_date": "2021-12-15",
+          "revenue": 638000000,
+          "runtime": 148,
+          "spoken_languages": [
+            {
+              "english_name": "English",
+              "iso_639_1": "en",
+              "name": "English"
+            },
+            {
+              "english_name": "Tagalog",
+              "iso_639_1": "tl",
+              "name": ""
+            }
+          ],
+          "status": "Released",
+          "tagline": "The Multiverse unleashed.",
+          "title": "Spider-Man: No Way Home",
+          "video": false,
+          "vote_average": 8.6,
+          "vote_count": 1925
+        }
+      ],
       "id": 5
-    },
-    {
-      "userName": "Endi",
-      "password": "ENdi",
-      "minutesWatched": 0,
-      "id": 6
     }
   ]
 }
