@@ -31,7 +31,7 @@ function getUsers() {
 function checkIfUserExists(username, pass) {
     let userExists = false
 
-    getUsers().then((resp) => {
+    return getUsers().then((resp) => {
         let respArray = [...resp]
 
         respArray.forEach((user) => {
@@ -45,6 +45,8 @@ function checkIfUserExists(username, pass) {
         if (!userExists) {
             addUserToDB(addNewUser(username, pass))
         }
+    }).then(() => {
+        render()
     })
 }
 
@@ -56,6 +58,7 @@ function addNewUser(userName, password) {
     user.minutesWatched = 0
 
     state.user = user
+
     return user
 }
 
@@ -143,11 +146,39 @@ function renderHeader() {
     const logo = document.createElement(`h1`)
     logo.setAttribute(`class`, `logo`)
     logo.textContent = `GOVIE MEEKS`
+    logo.addEventListener('click', () => {
+        state.movie = ""
+        render()
+    })
     divEl.append(logo)
 
     const accountDiv = document.createElement('div')
     accountDiv.setAttribute('class', 'account-info')
+    if (state.signedIn) {
+        const helloEl = document.createElement('h3')
 
+        helloEl.textContent = `Hello ${state.user.userName}`
+
+        helloEl.addEventListener('click', () => {
+            renderSignInModal()
+        })
+
+
+
+        accountDiv.append(helloEl)
+
+    } else {
+        const signInButton = document.createElement('button')
+        signInButton.setAttribute('class', 'button sign-in-button')
+        signInButton.textContent = "SIGN IN"
+        signInButton.addEventListener('click', () => {
+            renderSignInModal()
+        })
+
+        accountDiv.append(signInButton)
+    }
+
+    // accountDiv.append()
     header.append(divEl, accountDiv)
 }
 
@@ -189,8 +220,15 @@ function renderSingleMovie(movie) {
     moviePoster.setAttribute(`class`, `infoPoster`)
     moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
 
+    let backdrop = false
     moviePoster.addEventListener(`click`, function() {
-        moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`)
+        if (backdrop) {
+            moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
+            backdrop = !backdrop
+        } else {
+            moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`)
+            backdrop = !backdrop
+        }
     })
 
     const movieInfo = document.createElement('div')
@@ -225,57 +263,59 @@ function renderSingleMovie(movie) {
 }
 
 function renderSignInModal() {
-    const modalDiv = document.createElement('div')
-    modalDiv.setAttribute('class', 'modal')
-
-    const modalTitle = document.createElement('h2')
-
-
-    if (!state.signedIn) {
-        modalTitle.textContent = "SIGN IN"
-        const formEl = document.createElement('form')
-        const inputNameEl = document.createElement('input')
-        inputNameEl.setAttribute('type', 'text')
-        inputNameEl.setAttribute('name', 'username')
-        inputNameEl.setAttribute('placeholder', 'Write username')
-
-        const inputPasswordEl = document.createElement('input')
-        inputPasswordEl.setAttribute('type', 'password')
-        inputPasswordEl.setAttribute('name', 'password')
-        inputPasswordEl.setAttribute('placeholder', 'Write password')
-
-        const signInButton = document.createElement('button')
-        signInButton.setAttribute('type', 'submit')
-        signInButton.setAttribute('class', 'button sign-in-button')
-        signInButton.textContent = "SIGN IN"
-
-        formEl.addEventListener('submit', (e) => {
-            e.preventDefault()
-            state.signedIn = true
-            checkIfUserExists(inputNameEl.value, inputPasswordEl.value)
-            render()
-        })
-
-        formEl.append(inputNameEl, inputPasswordEl, signInButton)
-        modalDiv.append(modalTitle, formEl)
-
+    const modal = document.querySelector('.modal')
+    if (modal) {
+        modal.remove()
     } else {
-        modalTitle.textContent = "SIGN OUT"
+        const modalDiv = document.createElement('div')
+        modalDiv.setAttribute('class', 'modal')
+        const modalTitle = document.createElement('h2')
+        if (!state.signedIn) {
+            modalTitle.textContent = "SIGN IN"
+            const formEl = document.createElement('form')
+            const inputNameEl = document.createElement('input')
+            inputNameEl.setAttribute('type', 'text')
+            inputNameEl.setAttribute('name', 'username')
+            inputNameEl.setAttribute('placeholder', 'Write username')
 
-        const signOutP = document.createElement('p')
-        signOutP.textContent = `Hello ${state.user.userName}, would you like to sign out?`
+            const inputPasswordEl = document.createElement('input')
+            inputPasswordEl.setAttribute('type', 'password')
+            inputPasswordEl.setAttribute('name', 'password')
+            inputPasswordEl.setAttribute('placeholder', 'Write password')
 
-        const signOutButton = document.createElement('button')
-        signOutButton.setAttribute('class', 'button sign-out-button')
-        signOutButton.textContent = "SIGN OUT"
-        signOutButton.addEventListener('click', () => {
-            state.signedIn = false
-            render()
-        })
-        modalDiv.append(modalTitle, signOutP, signOutButton)
+            const signInButton = document.createElement('button')
+            signInButton.setAttribute('type', 'submit')
+            signInButton.setAttribute('class', 'button sign-in-button')
+            signInButton.textContent = "SIGN IN"
+
+            formEl.addEventListener('submit', (e) => {
+                e.preventDefault()
+                state.signedIn = true
+                checkIfUserExists(inputNameEl.value, inputPasswordEl.value)
+            })
+
+            formEl.append(inputNameEl, inputPasswordEl, signInButton)
+            modalDiv.append(modalTitle, formEl)
+
+        } else {
+            modalTitle.textContent = "SIGN OUT"
+
+            const signOutP = document.createElement('p')
+            signOutP.textContent = `Hello ${state.user.userName}, would you like to sign out?`
+
+            const signOutButton = document.createElement('button')
+            signOutButton.setAttribute('class', 'button sign-out-button')
+            signOutButton.textContent = "SIGN OUT"
+            signOutButton.addEventListener('click', () => {
+                state.signedIn = false
+                render()
+            })
+            modalDiv.append(modalTitle, signOutP, signOutButton)
+        }
+
+        body.append(modalDiv)
     }
 
-    body.append(modalDiv)
 }
 // Render Main depending on state and state.keyword
 function renderMain() {

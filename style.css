@@ -38,6 +38,20 @@ h1 {
     color: #E9ECEF;
 }
 
+.logo {
+    cursor: pointer;
+}
+
+header h3 {
+    cursor: pointer;
+    color: #E9ECEF;
+}
+
+.account-info {
+    display: grid;
+    place-items: center;
+}
+
 h3 {
     cursor: pointer;
     color: #E9ECEF;
