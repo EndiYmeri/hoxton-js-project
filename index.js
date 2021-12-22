@@ -15,6 +15,7 @@ const main = document.createElement('main')
 const body = document.querySelector(`body`)
 
 
+
 // Server Functions
 function getData(keyword, page) {
     return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308&page=${page}`).then(function (resp) {
@@ -39,6 +40,13 @@ function getSingleMovieData(movieID) {
 // Get Similar Movies
 function getSimilarMovies(movieID) {
     return fetch(`http://api.themoviedb.org/3/movie/${movieID}/similar?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+        return resp.json()
+    })
+}
+
+// Get Behind The Scenes
+function getBehindTheScenesData(movieID) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/videos?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
         return resp.json()
     })
 }
@@ -132,6 +140,32 @@ function renderSimilarMovies(movieID) {
         }
     })
     return ulEl
+}
+
+function renderBehindTheScenes(movieID) {
+    const ulEl = document.createElement('ul')
+    getBehindTheScenesData(movieID).then(function (item) {
+        state.singleMovie.behind = item.results
+    }).then(() => {
+        console.log(state.singleMovie.behind)
+        for (const behind of state.singleMovie.behind) {
+            ulEl.append(renderBehindTheSceneElement(behind))
+        }
+    })
+    return ulEl
+}
+
+
+function renderBehindTheSceneElement(theScene) {
+    const liEL = document.createElement('li')
+    const video = document.createElement('div')
+
+    video.innerHTML = `
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/${theScene.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    `
+    // <iframe width="560" height="315" src="https://www.youtube.com/embed/Ylufh8C79BI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    liEL.append(video)
+    return liEL
 }
 
 
@@ -330,19 +364,46 @@ function renderSingleMovie(movie) {
     similarTitle.setAttribute(`class`, `similar-title`)
     similarTitle.textContent = `Similar Movies`
 
+    const behindTheScenes = document.createElement('div')
+
+    const behindTheScenesTitle = document.createElement(`h2`)
+    behindTheScenesTitle.setAttribute(`class`, `behind-the-scenes`)
+    behindTheScenesTitle.textContent = `Behind The Scenes`
+
+
     similarMoviesDiv.append(similarTitle, renderSimilarMovies(movie.id))
 
-    main.append(divEl, similarMoviesDiv)
+    main.append(divEl, behindTheScenesTitle, renderBehindTheScenes(movie.id), similarMoviesDiv, behindTheScenes)
 }
 
 function renderSignInModal() {
     const modal = document.querySelector('.modal')
+
     if (modal) {
         modal.remove()
+
     } else {
         const modalDiv = document.createElement('div')
         modalDiv.setAttribute('class', 'modal')
         const modalTitle = document.createElement('h2')
+
+        const modalInner = document.createElement(`div`)
+        modalInner.setAttribute(`class`, `modal-inner`)
+
+        const closeButton = document.createElement('button')
+        closeButton.setAttribute('class', 'button modal-close-button')
+        closeButton.innerText = "X"
+
+        closeButton.addEventListener('click', (e) => {
+            e.preventDefault()
+            const modal = document.querySelector('.modal')
+            modal.remove()
+        })
+
+
+        modalInner.append(closeButton)
+        modalDiv.append(modalInner)
+
         if (!state.signedIn) {
             modalTitle.textContent = "SIGN IN"
             const formEl = document.createElement('form')
@@ -368,7 +429,8 @@ function renderSignInModal() {
             })
 
             formEl.append(inputNameEl, inputPasswordEl, signInButton)
-            modalDiv.append(modalTitle, formEl)
+            modalInner.append(modalTitle, formEl)
+            modalDiv.append(modalInner)
 
         } else {
             modalTitle.textContent = "SIGN OUT"
@@ -383,8 +445,11 @@ function renderSignInModal() {
                 state.signedIn = false
                 render()
             })
-            modalDiv.append(modalTitle, signOutP, signOutButton)
+            modalInner.append(modalTitle, signOutP, signOutButton)
+            modalDiv.append(modalInner)
         }
+
+
 
         body.append(modalDiv)
     }

@@ -140,10 +140,36 @@ ul {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: black;
-    padding: 3rem;
     color: white;
     border-radius: 10px;
 }
+
+.modal-inner{
+    position: relative;
+    padding: 3rem;
+}
+
+.modal-close-button{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    color: white;
+    background-color: #242325;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+
+}
+
+.modal-close-button:hover{
+ color: black;
+ background-color: white;
+}
+
 
 .modal form {
     margin-top: 20px;
@@ -231,6 +257,11 @@ ul {
 }
 
 .similar-title{
+    color: white;
+    padding: 1rem;
+}
+
+.behind-the-scenes{
     color: white;
     padding: 1rem;
 }
