@@ -99,7 +99,7 @@ function getSingleMovieData(movieID) {
 
 
 // Update state.movies for each keyword on get Data and then render the Main Sections for each keyword
-function updateState(keyword) {
+function getMainMoviesInfo(keyword) {
     getData(keyword).then(function(item) {
         state.movies = item.results
 
@@ -139,7 +139,6 @@ function renderMoviesList(movie) {
 }
 
 // Render Header
-
 function renderHeader() {
     header.innerHTML = ``
     const divEl = document.createElement(`div`)
@@ -208,7 +207,6 @@ function renderMainSections(keyword) {
 
     return sectionEl
 }
-
 
 // Render Single Movie
 function renderSingleMovie(movie) {
@@ -322,7 +320,7 @@ function renderMain() {
     main.innerHTML = ""
     if (!state.movie) {
         for (const keyword of state.keyword) {
-            updateState(keyword)
+            getMainMoviesInfo(keyword)
         }
     } else {
         main.append(renderSingleMovie(state.movie))
