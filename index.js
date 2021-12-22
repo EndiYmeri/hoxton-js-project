@@ -414,21 +414,17 @@ function renderSingleMovie(movie) {
                 addToMoviesWatchedButton.textContent = "Remove from Watched Movies"
             }
         }
-        if (addToMoviesWatchedButton.textContent === "Add to Watched Movies") {
-            addToMoviesWatchedButton.addEventListener('click', (e) => {
-                e.preventDefault()
+
+        addToMoviesWatchedButton.addEventListener('click', (e) => {
+            e.preventDefault()
+            if (addToMoviesWatchedButton.textContent === "Add to Watched Movies") {
                 addToMoviesWatchedButton.textContent = "Remove from Watched Movies"
                 addMovieToMoviesWatched(movie)
-
-            })
-        } else {
-            addToMoviesWatchedButton.addEventListener('click', (e) => {
-                e.preventDefault()
+            } else {
                 addToMoviesWatchedButton.textContent = "Add to Watched Movies"
                 removeMovieFromMoviesWatched(movie)
-
-            })
-        }
+            }
+        })
 
 
 
@@ -442,17 +438,17 @@ function renderSingleMovie(movie) {
             }
         }
 
-        if (addToWatchLaterButton.textContent === "Watch Later") {
-            addToWatchLaterButton.addEventListener('click', (e) => {
+        addToWatchLaterButton.addEventListener('click', (e) => {
+            e.preventDefault()
+            if (addToWatchLaterButton.textContent === "Watch Later") {
                 addToWatchLaterButton.textContent = "Remove from watch later"
                 addMovieToWatchLater(movie)
-            })
-        } else {
-            addToWatchLaterButton.addEventListener('click', (e) => {
+            } else {
                 addToWatchLaterButton.textContent = "Watch Later"
                 removeMovieFromWatchLater(movie)
-            })
-        }
+            }
+        })
+
 
         secondArticle.append(addToMoviesWatchedButton, addToWatchLaterButton)
     }
