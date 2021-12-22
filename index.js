@@ -120,26 +120,25 @@ function addUserToDB(user) {
     })
 }
 
-function addMinutesWatched(movie) {
-    state.user.minutesWatched += movie.runtime
-}
-
-function decreaseMinutesWatched(movie) {
-    state.user.minutesWatched -= movie.runtime
+function calculateMinutesWatched() {
+    state.user.minutesWatched = 0
+    for (const movie of state.user.moviesWatched) {
+        state.user.minutesWatched += movie.runtime
+    }
 }
 
 function addMovieToMoviesWatched(movie) {
     state.user.moviesWatched.push(movie)
-    addMinutesWatched(movie)
+    calculateMinutesWatched()
     updateUserInfo(state.user)
 }
 
 
-function removeMovieFromMoviesWatched(movie) {
+function removeMovieFromMoviesWatched(movieToBeRemoved) {
     state.user.moviesWatched = state.user.moviesWatched.filter((movie) => {
-        return movie !== movie
+        return movie.title !== movieToBeRemoved.title
     })
-    decreaseMinutesWatched(movie)
+    calculateMinutesWatched()
     updateUserInfo(state.user)
 }
 
@@ -297,10 +296,17 @@ function renderHeader() {
 
         helloEl.textContent = `Hello ${state.user.userName}`
 
+        const timeWatched = document.createElement(`p`)
+        timeWatched.setAttribute(`class`, `time-watched`)
+        timeWatched.textContent = `You have watched ${state.user.minutesWatched} min`
+
+        const moviesWatched = document.createElement(`p`)
+        moviesWatched.textContent = `Movies Watched: ${state.user.moviesWatched.length}`
+
         helloEl.addEventListener('click', () => {
             renderSignInModal()
         })
-        accountDiv.append(helloEl)
+        accountDiv.append(helloEl, timeWatched, moviesWatched)
 
     } else {
         const signInButton = document.createElement('button')
@@ -427,6 +433,7 @@ function renderSingleMovie(movie) {
                 addToMoviesWatchedButton.textContent = "Add to Watched Movies"
                 removeMovieFromMoviesWatched(movie)
             }
+            render()
         })
 
 
@@ -575,9 +582,6 @@ function renderMain() {
 
 function render() {
     body.innerHTML = ""
-    getUsers().then(() => {
-
-    })
     renderHeader()
     renderMain()
     body.append(header, main, footer)
