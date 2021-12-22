@@ -195,7 +195,12 @@ function renderHeader() {
     searchEl.setAttribute(`class`, `search-el`)
     searchEl.setAttribute(`placeholder`, `Search...`)
 
-    searchForm.append(searchEl)
+    const submitEl = document.createElement(`input`)
+    submitEl.setAttribute(`type`, `submit`)
+    submitEl.setAttribute(`value`, `Search`)
+    submitEl.setAttribute(`class`, `submit-btn`)
+
+    searchForm.append(searchEl, submitEl)
     searchForm.addEventListener('submit', (e) => {
         console.log(searchEl.value)
         e.preventDefault()
@@ -321,7 +326,11 @@ function renderSingleMovie(movie) {
 
     const similarMoviesDiv = document.createElement('div')
 
-    similarMoviesDiv.append(renderSimilarMovies(movie.id))
+    const similarTitle = document.createElement(`h2`)
+    similarTitle.setAttribute(`class`, `similar-title`)
+    similarTitle.textContent = `Similar Movies`
+
+    similarMoviesDiv.append(similarTitle, renderSimilarMovies(movie.id))
 
     main.append(divEl, similarMoviesDiv)
 }

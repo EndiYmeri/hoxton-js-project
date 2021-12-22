@@ -190,6 +190,7 @@ ul {
 
 .search-form{
     display: grid;
+    grid-auto-flow: column;
     width:100%;
 }
 
@@ -201,8 +202,37 @@ ul {
     background-color: #242325;
     color: white;
     border: none;
-    border-radius: .5rem;
+    border-top-left-radius: .5rem;
+    border-bottom-left-radius: .5rem;
     padding: .5rem 1rem;
+    outline: none;
+}
+
+.submit-btn{
+    width: 100%;
+    max-width: 5rem;
+    height: 2rem;
+    margin-top: 2rem;
+    margin-left: .1rem;
+    border-top-right-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+    background-color: #242325;
+    color: white;
+    border: none;
+    padding: .5rem 1rem;
+    cursor: pointer;
+    outline: none;
+    transition: .3s ease-in-out;
+}
+
+.submit-btn:hover{
+    background-color: white;
+    color: black;
+}
+
+.similar-title{
+    color: white;
+    padding: 1rem;
 }
 
 @media screen and (max-width:767px) {
