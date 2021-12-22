@@ -204,6 +204,27 @@ ul {
     border-bottom:1px solid white;
 }
 
+.add-to-movies-watched-button{
+    width: 20rem;
+    background-color: #242325;
+    color: white;
+    transition: .1s ease-in-out;
+    border: 1px solid black;
+    padding: .5rem 1rem;
+    border-radius: .3rem;
+    cursor: pointer;
+}
+
+.add-to-movies-watched-button:hover{
+    transform: scale(1.1);
+}
+
+.btn-activate{
+  background-color: white;
+  color: black;
+  transition: .1s ease-in-out;
+}
+
 .sign-out-button{
     background-color: #242325;
     color: white;

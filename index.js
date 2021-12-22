@@ -18,13 +18,13 @@ const body = document.querySelector(`body`)
 
 // Server Functions
 function getData(keyword, page) {
-    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308&page=${page}`).then(function(resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308&page=${page}`).then(function (resp) {
         return resp.json()
     })
 }
 
 function getSearchedMovies(searchTerm) {
-    return fetch(`http://api.themoviedb.org/3/search/movie/${searchTerm}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
+    return fetch(`http://api.themoviedb.org/3/search/movie/${searchTerm}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
         return resp.json()
     })
 }
@@ -32,21 +32,21 @@ function getSearchedMovies(searchTerm) {
 
 // Get Single Movie Information
 function getSingleMovieData(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
         return resp.json()
     })
 }
 
 // Get Similar Movies
 function getSimilarMovies(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/similar?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/similar?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
         return resp.json()
     })
 }
 
 // Get Behind The Scenes
 function getBehindTheScenesData(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/videos?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/videos?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
         return resp.json()
     })
 }
@@ -69,7 +69,7 @@ function checkIfUserExists(username, pass) {
             if (user.userName === username && user.password === pass) {
                 userExists = true
                 state.user = user
-                    // console.log("User Exists:" + user.userName + " with password: " + user.password)
+                // console.log("User Exists:" + user.userName + " with password: " + user.password)
             }
         })
 
@@ -176,7 +176,7 @@ function updateUserInfo(user) {
 
 function renderSimilarMovies(movieID) {
     const ulEl = document.createElement('ul')
-    getSimilarMovies(movieID).then(function(item) {
+    getSimilarMovies(movieID).then(function (item) {
         state.singleMovie.similar = item.results
     }).then(() => {
 
@@ -189,7 +189,7 @@ function renderSimilarMovies(movieID) {
 
 function renderBehindTheScenes(movieID) {
     const ulEl = document.createElement('ul')
-    getBehindTheScenesData(movieID).then(function(item) {
+    getBehindTheScenesData(movieID).then(function (item) {
         state.singleMovie.behind = item.results
     }).then(() => {
         console.log(state.singleMovie.behind)
@@ -208,7 +208,7 @@ function renderBehindTheSceneElement(theScene) {
     video.innerHTML = `
     <iframe width="560" height="315" src="https://www.youtube.com/embed/${theScene.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     `
-        // <iframe width="560" height="315" src="https://www.youtube.com/embed/Ylufh8C79BI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    // <iframe width="560" height="315" src="https://www.youtube.com/embed/Ylufh8C79BI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     liEL.append(video)
     return liEL
 }
@@ -217,7 +217,7 @@ function renderBehindTheSceneElement(theScene) {
 // Update state.movies for each keyword on get Data and then render the Main Sections for each keyword
 function getMainMoviesInfo(keyword) {
     // state.movies = []
-    getData(keyword, 1).then(function(item) {
+    getData(keyword, 1).then(function (item) {
         return state.movies = item.results
     }).then(() => {
         main.append(renderMainSections(keyword))
@@ -226,7 +226,7 @@ function getMainMoviesInfo(keyword) {
 
 // Update State Single Movie ID from Server
 function getSingleMovieInfo(movieID) {
-    getSingleMovieData(movieID).then(function(item) {
+    getSingleMovieData(movieID).then(function (item) {
         state.singleMovie.movie = item
     }).then(() => {
         render()
@@ -364,7 +364,7 @@ function renderSingleMovie(movie) {
     moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
 
     let backdrop = false
-    moviePoster.addEventListener(`click`, function() {
+    moviePoster.addEventListener(`click`, function () {
         if (backdrop) {
             moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
             backdrop = !backdrop
@@ -412,13 +412,16 @@ function renderSingleMovie(movie) {
         for (const watchedMovie of state.user.moviesWatched) {
             if (watchedMovie.title === movie.title) {
                 addToMoviesWatchedButton.textContent = "Remove from Watched Movies"
+                addToMoviesWatchedButton.classList.toggle(`btn-activate`)
             }
         }
 
         addToMoviesWatchedButton.addEventListener('click', (e) => {
+            addToMoviesWatchedButton.classList.toggle(`btn-activate`)
             e.preventDefault()
             if (addToMoviesWatchedButton.textContent === "Add to Watched Movies") {
                 addToMoviesWatchedButton.textContent = "Remove from Watched Movies"
+
                 addMovieToMoviesWatched(movie)
             } else {
                 addToMoviesWatchedButton.textContent = "Add to Watched Movies"
@@ -435,10 +438,13 @@ function renderSingleMovie(movie) {
         for (const watchLaterMovie of state.user.watchLater) {
             if (watchLaterMovie.title === movie.title) {
                 addToWatchLaterButton.textContent = "Remove from watch later"
+                addToWatchLaterButton.classList.toggle(`btn-activate`)
             }
+
         }
 
         addToWatchLaterButton.addEventListener('click', (e) => {
+            addToWatchLaterButton.classList.toggle(`btn-activate`)
             e.preventDefault()
             if (addToWatchLaterButton.textContent === "Watch Later") {
                 addToWatchLaterButton.textContent = "Remove from watch later"
