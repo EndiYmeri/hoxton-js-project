@@ -14,7 +14,7 @@ const body = document.querySelector(`body`)
 
 // Server Functions
 function getData(keyword) {
-    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
         return resp.json()
     })
 }
@@ -38,7 +38,7 @@ function checkIfUserExists(username, pass) {
             if (user.userName === username && user.password === pass) {
                 userExists = true
                 state.user = user
-                    // console.log("User Exists:" + user.userName + " with password: " + user.password)
+                // console.log("User Exists:" + user.userName + " with password: " + user.password)
             }
         })
 
@@ -92,7 +92,7 @@ function updateUserInfo(id, minutes) {
 
 // Get Single Movie Information
 function getSingleMovieData(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
         return resp.json()
     })
 }
@@ -100,7 +100,7 @@ function getSingleMovieData(movieID) {
 
 // Update state.movies for each keyword on get Data and then render the Main Sections for each keyword
 function getMainMoviesInfo(keyword) {
-    getData(keyword).then(function(item) {
+    getData(keyword).then(function (item) {
         state.movies = item.results
 
     }).then(() => {
@@ -110,7 +110,7 @@ function getMainMoviesInfo(keyword) {
 
 // Update State Single Movie ID from Server
 function getSingleMovieInfo(movieID) {
-    getSingleMovieData(movieID).then(function(item) {
+    getSingleMovieData(movieID).then(function (item) {
         state.movie = item
     }).then(() => {
         render()
@@ -151,6 +151,16 @@ function renderHeader() {
     })
     divEl.append(logo)
 
+    const searchForm = document.createElement(`form`)
+    searchForm.setAttribute(`class`, `search-form`)
+
+    const searchEl = document.createElement(`input`)
+    searchEl.setAttribute(`type`, `search`)
+    searchEl.setAttribute(`class`, `search-el`)
+    searchEl.setAttribute(`placeholder`, `Search...`)
+
+    searchForm.append(searchEl)
+
     const accountDiv = document.createElement('div')
     accountDiv.setAttribute('class', 'account-info')
     if (state.signedIn) {
@@ -178,7 +188,7 @@ function renderHeader() {
     }
 
     // accountDiv.append()
-    header.append(divEl, accountDiv)
+    header.append(divEl, searchForm, accountDiv)
 }
 
 // Render Main Sections
@@ -219,7 +229,7 @@ function renderSingleMovie(movie) {
     moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
 
     let backdrop = false
-    moviePoster.addEventListener(`click`, function() {
+    moviePoster.addEventListener(`click`, function () {
         if (backdrop) {
             moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
             backdrop = !backdrop
