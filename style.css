@@ -36,6 +36,7 @@ header {
 h1 {
     padding: .5rem;
     color: #E9ECEF;
+    white-space: pre
 }
 
 .logo {
@@ -166,10 +167,15 @@ ul {
     background-color: #242325;
     color: white;
     transition: .3s ease-in-out;
+    border: 1px solid black;
+    padding: .5rem 1rem;
+    border-radius: .3rem;
+    cursor: pointer;
 }
 
 .sign-in-button:hover{
     background-color: black;
+    border-bottom:1px solid white;
 }
 
 .sign-out-button{
@@ -184,15 +190,23 @@ ul {
 
 .search-form{
     display: grid;
-justify-self: center;
+    width:100%;
 }
 
 .search-el{
-    width: 40rem;
+    width: 100%;
+    max-width: 40rem;
     height: 2rem;
-    margin-top: .7rem;
+    margin-top: 2rem;
     background-color: #242325;
     color: white;
     border: none;
     border-radius: .5rem;
+    padding: .5rem 1rem;
+}
+
+@media screen and (max-width:767px) {
+        header{
+            grid-auto-flow: row;
+        }
 }

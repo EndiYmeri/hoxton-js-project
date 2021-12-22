@@ -1,9 +1,12 @@
 const state = {
     movies: [],
-    movie: null,
+    singleMovie: {
+        movie: null
+    },
     keyword: ["upcoming", "popular", "top_rated"],
     signedIn: false,
     user: {},
+    searchTerm: "",
 }
 
 const header = document.createElement(`header`)
@@ -13,8 +16,29 @@ const body = document.querySelector(`body`)
 
 
 // Server Functions
-function getData(keyword) {
-    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+function getData(keyword, page) {
+    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308&page=${page}`).then(function (resp) {
+        return resp.json()
+    })
+}
+
+function getSearchedMovies(searchTerm) {
+    return fetch(`http://api.themoviedb.org/3/search/movie/${searchTerm}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+        return resp.json()
+    })
+}
+
+
+// Get Single Movie Information
+function getSingleMovieData(movieID) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+        return resp.json()
+    })
+}
+
+// Get Similar Movies
+function getSimilarMovies(movieID) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/similar?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
         return resp.json()
     })
 }
@@ -22,15 +46,14 @@ function getData(keyword) {
 
 function getUsers() {
     return fetch('http://localhost:3000/users').then((resp) => {
-        console.log(resp.users)
         return resp.json();
     })
 
 }
 
+
 function checkIfUserExists(username, pass) {
     let userExists = false
-
     return getUsers().then((resp) => {
         let respArray = [...resp]
 
@@ -50,6 +73,13 @@ function checkIfUserExists(username, pass) {
     })
 }
 
+function goHome() {
+    state.singleMovie = {
+        movie: null
+    }
+    state.searchTerm = ""
+    render()
+}
 
 function addNewUser(userName, password) {
     let user = {}
@@ -90,19 +120,26 @@ function updateUserInfo(id, minutes) {
     })
 }
 
-// Get Single Movie Information
-function getSingleMovieData(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
-        return resp.json()
+
+function renderSimilarMovies(movieID) {
+    const ulEl = document.createElement('ul')
+    getSimilarMovies(movieID).then(function (item) {
+        state.singleMovie.similar = item.results
+    }).then(() => {
+
+        for (const similarMovie of state.singleMovie.similar) {
+            ulEl.append(renderMoviesList(similarMovie))
+        }
     })
+    return ulEl
 }
 
 
 // Update state.movies for each keyword on get Data and then render the Main Sections for each keyword
 function getMainMoviesInfo(keyword) {
-    getData(keyword).then(function (item) {
-        state.movies = item.results
-
+    // state.movies = []
+    getData(keyword, 1).then(function (item) {
+        return state.movies = item.results
     }).then(() => {
         main.append(renderMainSections(keyword))
     })
@@ -111,7 +148,7 @@ function getMainMoviesInfo(keyword) {
 // Update State Single Movie ID from Server
 function getSingleMovieInfo(movieID) {
     getSingleMovieData(movieID).then(function (item) {
-        state.movie = item
+        state.singleMovie.movie = item
     }).then(() => {
         render()
     })
@@ -134,8 +171,8 @@ function renderMoviesList(movie) {
     movieLiEl.addEventListener('click', () => {
         getSingleMovieInfo(movie.id)
     })
-
     return movieLiEl
+
 }
 
 // Render Header
@@ -144,10 +181,9 @@ function renderHeader() {
     const divEl = document.createElement(`div`)
     const logo = document.createElement(`h1`)
     logo.setAttribute(`class`, `logo`)
-    logo.textContent = `GOVIE MEEKS`
+    logo.textContent = `GOVIE\r\nMEEKS`
     logo.addEventListener('click', () => {
-        state.movie = ""
-        render()
+        goHome()
     })
     divEl.append(logo)
 
@@ -155,11 +191,20 @@ function renderHeader() {
     searchForm.setAttribute(`class`, `search-form`)
 
     const searchEl = document.createElement(`input`)
-    searchEl.setAttribute(`type`, `search`)
+    searchEl.setAttribute(`type`, `text`)
     searchEl.setAttribute(`class`, `search-el`)
     searchEl.setAttribute(`placeholder`, `Search...`)
 
     searchForm.append(searchEl)
+    searchForm.addEventListener('submit', (e) => {
+        console.log(searchEl.value)
+        e.preventDefault()
+        state.singleMovie = {
+            movie: null
+        }
+        state.searchTerm = searchEl.value
+        render()
+    })
 
     const accountDiv = document.createElement('div')
     accountDiv.setAttribute('class', 'account-info')
@@ -171,9 +216,6 @@ function renderHeader() {
         helloEl.addEventListener('click', () => {
             renderSignInModal()
         })
-
-
-
         accountDiv.append(helloEl)
 
     } else {
@@ -183,7 +225,6 @@ function renderHeader() {
         signInButton.addEventListener('click', () => {
             renderSignInModal()
         })
-
         accountDiv.append(signInButton)
     }
 
@@ -209,11 +250,21 @@ function renderMainSections(keyword) {
     }
 
     const ulEl = document.createElement('ul')
-
-    for (const movie of state.movies) {
-        ulEl.append(renderMoviesList(movie))
+    if (!state.searchTerm) {
+        for (const movie of state.movies) {
+            ulEl.append(renderMoviesList(movie))
+        }
+        sectionEl.append(sectionTitle, ulEl)
+    } else {
+        state.movies = state.movies.filter((element) => {
+            console.log(element.title)
+            return element.title.toUpperCase().includes(state.searchTerm.toUpperCase())
+        })
+        for (const movie of state.movies) {
+            ulEl.append(renderMoviesList(movie))
+        }
+        sectionEl.append(sectionTitle, ulEl)
     }
-    sectionEl.append(sectionTitle, ulEl)
 
     return sectionEl
 }
@@ -267,7 +318,12 @@ function renderSingleMovie(movie) {
     articleEl.append(moviePoster)
     secondArticle.append(movieInfo, releaseDate, voteAverage, runTime, plot, overview)
     divEl.append(articleEl, secondArticle)
-    main.append(divEl)
+
+    const similarMoviesDiv = document.createElement('div')
+
+    similarMoviesDiv.append(renderSimilarMovies(movie.id))
+
+    main.append(divEl, similarMoviesDiv)
 }
 
 function renderSignInModal() {
@@ -328,15 +384,14 @@ function renderSignInModal() {
 // Render Main depending on state and state.keyword
 function renderMain() {
     main.innerHTML = ""
-    if (!state.movie) {
+    if (!state.singleMovie.movie) {
         for (const keyword of state.keyword) {
             getMainMoviesInfo(keyword)
         }
     } else {
-        main.append(renderSingleMovie(state.movie))
+        main.append(renderSingleMovie(state.singleMovie.movie))
         main.lastChild.remove()
     }
-
 }
 
 function render() {
