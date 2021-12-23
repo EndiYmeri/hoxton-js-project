@@ -51,7 +51,26 @@ header h3 {
 .account-info {
     display: grid;
     place-items: center;
+    position: relative;
 }
+
+.after-signin{
+    display: grid;
+    justify-content: end;
+    }
+
+    .hello-user{
+        text-align: end;
+        color: rgb(136, 41, 41);
+    }
+
+    .time-watched{
+        text-align: end;
+    }
+
+    .movies-watched-el{
+        text-align: end;
+    }
 
 h3 {
     cursor: pointer;

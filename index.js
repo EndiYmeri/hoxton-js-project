@@ -293,20 +293,31 @@ function renderHeader() {
     accountDiv.setAttribute('class', 'account-info')
     if (state.signedIn) {
         const helloEl = document.createElement('h3')
+        helloEl.setAttribute(`class`, `hello-user`)
 
-        helloEl.textContent = `Hello ${state.user.userName}`
+        helloEl.textContent = `Welcome, ${state.user.userName}!`
+
+        const afterSignIn = document.createElement(`div`)
+        afterSignIn.setAttribute(`class`, `after-signin`)
+
+        const afterMoviesAndMinutes = document.createElement(`div`)
+        afterMoviesAndMinutes.setAttribute(`class`, `after-movies`)
 
         const timeWatched = document.createElement(`p`)
         timeWatched.setAttribute(`class`, `time-watched`)
-        timeWatched.textContent = `You have watched ${state.user.minutesWatched} min`
+        timeWatched.textContent = `You have watched: ${state.user.minutesWatched} min`
 
         const moviesWatched = document.createElement(`p`)
+        moviesWatched.setAttribute(`class`, `movies-watched-el`)
         moviesWatched.textContent = `Movies Watched: ${state.user.moviesWatched.length}`
 
         helloEl.addEventListener('click', () => {
             renderSignInModal()
         })
-        accountDiv.append(helloEl, timeWatched, moviesWatched)
+
+        afterMoviesAndMinutes.append(timeWatched, moviesWatched)
+        afterSignIn.append(helloEl, afterMoviesAndMinutes)
+        accountDiv.append(afterSignIn)
 
     } else {
         const signInButton = document.createElement('button')
