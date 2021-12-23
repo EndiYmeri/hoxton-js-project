@@ -29,8 +29,10 @@ header {
     height: auto;
     background-color: black;
     display: grid;
-    grid-auto-flow: column;
+    grid-template-columns: auto 1fr auto;
     padding: 1rem 2rem;
+    align-items: center;
+    gap: 20px;
 }
 
 h1 {
@@ -50,27 +52,26 @@ header h3 {
 
 .account-info {
     display: grid;
-    place-items: center;
     position: relative;
 }
 
-.after-signin{
+.after-signin {
     display: grid;
     justify-content: end;
-    }
+}
 
-    .hello-user{
-        text-align: end;
-        color: rgb(136, 41, 41);
-    }
+.hello-user {
+    text-align: end;
+    color: rgb(136, 41, 41);
+}
 
-    .time-watched{
-        text-align: end;
-    }
+.time-watched {
+    text-align: end;
+}
 
-    .movies-watched-el{
-        text-align: end;
-    }
+.movies-watched-el {
+    text-align: end;
+}
 
 h3 {
     cursor: pointer;
@@ -92,9 +93,11 @@ p {
     text-align: justify;
     font-size: 1rem;
     line-height: 1.6;
-    display: grid;
-    grid-template-columns: minmax(50ch, 55ch);
-    align-items: center;
+    max-width: 55ch;
+}
+
+.movieData p {
+    min-width: 35ch;
 }
 
 .smallPosters {
@@ -163,12 +166,12 @@ ul {
     border-radius: 10px;
 }
 
-.modal-inner{
+.modal-inner {
     position: relative;
     padding: 3rem;
 }
 
-.modal-close-button{
+.modal-close-button {
     position: absolute;
     right: 20px;
     top: 20px;
@@ -181,14 +184,12 @@ ul {
     outline: none;
     cursor: pointer;
     transition: .3s ease-in-out;
-
 }
 
-.modal-close-button:hover{
- color: black;
- background-color: white;
+.modal-close-button:hover {
+    color: black;
+    background-color: white;
 }
-
 
 .modal form {
     margin-top: 20px;
@@ -205,7 +206,7 @@ ul {
     border-bottom: 1px solid #242325;
 }
 
-.sign-in-button{
+.sign-in-button {
     display: grid;
     justify-self: end;
     width: 6rem;
@@ -218,12 +219,12 @@ ul {
     cursor: pointer;
 }
 
-.sign-in-button:hover{
+.sign-in-button:hover {
     background-color: black;
-    border-bottom:1px solid white;
+    border-bottom: 1px solid white;
 }
 
-.add-to-movies-watched-button{
+.add-to-movies-watched-button {
     width: 20rem;
     background-color: #242325;
     color: white;
@@ -234,37 +235,40 @@ ul {
     cursor: pointer;
 }
 
-.add-to-movies-watched-button:hover{
+.add-to-movies-watched-button:hover {
     transform: scale(1.1);
 }
 
-.btn-activate{
-  background-color: white;
-  color: black;
-  transition: .1s ease-in-out;
+.btn-activate {
+    background-color: white;
+    color: black;
+    transition: .1s ease-in-out;
 }
 
-.sign-out-button{
+.sign-out-button {
     background-color: #242325;
     color: white;
     transition: .3s ease-in-out;
 }
 
-.sign-out-button:hover{
+.sign-out-button:hover {
     background-color: black;
 }
 
-.search-form{
+.search-form {
     display: grid;
-    grid-auto-flow: column;
-    width:100%;
+    grid-template-columns: 1fr auto;
+    width: 100%;
+    max-width: 46rem;
+    margin: auto;
+    justify-items: center;
+    gap: 1px;
 }
 
-.search-el{
+.search-el {
     width: 100%;
     max-width: 40rem;
     height: 2rem;
-    margin-top: 2rem;
     background-color: #242325;
     color: white;
     border: none;
@@ -272,14 +276,13 @@ ul {
     border-bottom-left-radius: .5rem;
     padding: .5rem 1rem;
     outline: none;
+    justify-self: end;
 }
 
-.submit-btn{
+.submit-btn {
     width: 100%;
     max-width: 5rem;
     height: 2rem;
-    margin-top: 2rem;
-    margin-left: .1rem;
     border-top-right-radius: .5rem;
     border-bottom-right-radius: .5rem;
     background-color: #242325;
@@ -291,23 +294,39 @@ ul {
     transition: .3s ease-in-out;
 }
 
-.submit-btn:hover{
+.submit-btn:hover {
     background-color: white;
     color: black;
 }
 
-.similar-title{
+.similar-title {
     color: white;
     padding: 1rem;
 }
 
-.behind-the-scenes{
+.behind-the-scenes {
     color: white;
     padding: 1rem;
 }
 
-@media screen and (max-width:767px) {
-        header{
-            grid-auto-flow: row;
-        }
+@media screen and (max-width:820px) {
+    header {
+        grid-template-areas: "logo login" "search search";
+        gap: 5px;
+    }
+    .logo {
+        grid-area: logo;
+        font-size: 1.5rem;
+    }
+    .account-info {
+        grid-area: login;
+    }
+    .search-form {
+        grid-area: search;
+        order: 2;
+        width: 100%;
+    }
+    .after-movies p {
+        font-size: .8rem;
+    }
 }
