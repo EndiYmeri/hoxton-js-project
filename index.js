@@ -18,41 +18,41 @@ const body = document.querySelector(`body`)
 
 
 // Server Functions
+// Get data from server on that keyword
 function getData(keyword, page) {
-    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308&page=${page}`).then(function (resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308&page=${page}`).then(function(resp) {
         return resp.json()
     })
 }
 
 function getSearchedMovies(searchTerm) {
-    return fetch(`http://api.themoviedb.org/3/search/movie/${searchTerm}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+    return fetch(`http://api.themoviedb.org/3/search/movie/${searchTerm}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
         return resp.json()
     })
 }
 
-
 // Get Single Movie Information
 function getSingleMovieData(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
         return resp.json()
     })
 }
 
 // Get Similar Movies
 function getSimilarMovies(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/similar?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/similar?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
         return resp.json()
     })
 }
 
 // Get Behind The Scenes
 function getBehindTheScenesData(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/videos?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/videos?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
         return resp.json()
     })
 }
 
-
+// Get users from our DB
 function getUsers() {
     return fetch('http://localhost:3000/users').then((resp) => {
         return resp.json();
@@ -60,7 +60,33 @@ function getUsers() {
 
 }
 
+// Adding new user to db
+function addUserToDB(user) {
+    return fetch('http://localhost:3000/users', {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            userName: user.userName,
+            password: user.password,
+            minutesWatched: user.minutesWatched,
+            moviesWatched: user.moviesWatched,
+            watchLater: user.watchLater
+        })
+    })
+}
 
+// Deleting user from db
+function deleteAccount(user) {
+    fetch(`http://localhost:3000/users/${user.id}`, {
+        method: "DELETE",
+    })
+
+}
+
+
+// Check if user exsists or not, then create user if not and add the user to state.user 
 function checkIfUserExists(username, pass) {
     let userExists = false
     return getUsers().then((resp) => {
@@ -83,107 +109,7 @@ function checkIfUserExists(username, pass) {
     })
 }
 
-function goHome() {
-    state.singleMovie = {
-        movie: null
-    }
-    state.searchTerm = ""
-    state.showMyMovies = false
-    render()
-}
-
-function search(word) {
-    state.singleMovie = {
-        movie: null
-    }
-    state.showMyMovies = false
-    state.searchTerm = word
-    render()
-}
-
-function myMovies() {
-    state.singleMovie = {
-        movie: null
-    }
-    state.searchTerm = ""
-    state.showMyMovies = true
-    render()
-}
-
-function addNewUser(userName, password) {
-    let user = {}
-    user.userName = userName
-    user.password = password
-    user.minutesWatched = 0
-    user.moviesWatched = []
-    user.watchLater = []
-
-    return user
-}
-
-
-function addUserToDB(user) {
-
-    return fetch('http://localhost:3000/users', {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json"
-        },
-        body: JSON.stringify({
-            userName: user.userName,
-            password: user.password,
-            minutesWatched: user.minutesWatched,
-            moviesWatched: user.moviesWatched,
-            watchLater: user.watchLater
-        })
-    })
-}
-
-function deleteAccount(user) {
-    fetch(`http://localhost:3000/users/${user.id}`, {
-        method: "DELETE",
-    })
-
-}
-
-
-function calculateMinutesWatched() {
-    state.user.minutesWatched = 0
-    for (const movie of state.user.moviesWatched) {
-        state.user.minutesWatched += movie.runtime
-    }
-}
-
-function addMovieToMoviesWatched(movie) {
-    state.user.moviesWatched.push(movie)
-    calculateMinutesWatched()
-    updateUserInfo(state.user)
-}
-
-
-function removeMovieFromMoviesWatched(movieToBeRemoved) {
-    state.user.moviesWatched = state.user.moviesWatched.filter((movie) => {
-        return movie.title !== movieToBeRemoved.title
-    })
-    calculateMinutesWatched()
-    updateUserInfo(state.user)
-}
-
-
-function addMovieToWatchLater(movie) {
-    state.user.watchLater.push(movie)
-    updateUserInfo(state.user)
-}
-
-function removeMovieFromWatchLater(movie) {
-    state.user.watchLater = state.user.watchLater.filter((movie) => {
-        return movie !== movie
-    })
-    updateUserInfo(state.user)
-
-}
-
-
+// Updating user info on db
 function updateUserInfo(user) {
     return fetch(`http://localhost:3000/users/${user.id}`, {
         method: "PATCH",
@@ -198,6 +124,110 @@ function updateUserInfo(user) {
     })
 }
 
+// Update state.movies for each keyword on get Data and then render the Main Sections for each keyword
+function getMainMoviesInfo(keyword) {
+    // state.movies = []
+    getData(keyword, 1).then(function(item) {
+        return state.movies = item.results
+    }).then(() => {
+        main.append(renderMainSections(keyword))
+    })
+}
+
+// Update State Single Movie ID from Server 
+function getSingleMovieInfo(movieID) {
+    getSingleMovieData(movieID).then(function(item) {
+        state.singleMovie.movie = item
+    }).then(() => {
+        render()
+    })
+
+}
+
+// Helper functions
+// Go home function to clear some things
+function goHome() {
+    state.singleMovie = {
+        movie: null
+    }
+    state.searchTerm = ""
+    state.showMyMovies = false
+    render()
+}
+
+// Change the state for when we search something
+function search(word) {
+    state.singleMovie = {
+        movie: null
+    }
+    state.showMyMovies = false
+    state.searchTerm = word
+    render()
+}
+
+// Change the state for when we want to want to watch our movies
+function myMovies() {
+    state.singleMovie = {
+        movie: null
+    }
+    state.searchTerm = ""
+    state.showMyMovies = true
+    render()
+}
+
+// Creating new user 
+function addNewUser(userName, password) {
+    let user = {}
+    user.userName = userName
+    user.password = password
+    user.minutesWatched = 0
+    user.moviesWatched = []
+    user.watchLater = []
+
+    return user
+}
+
+// Calculate how much time we wasted watching movies
+function calculateMinutesWatched() {
+    state.user.minutesWatched = 0
+    for (const movie of state.user.moviesWatched) {
+        state.user.minutesWatched += movie.runtime
+    }
+}
+
+// Add a movie to movies watched
+function addMovieToMoviesWatched(movie) {
+    state.user.moviesWatched.push(movie)
+    calculateMinutesWatched()
+    updateUserInfo(state.user)
+}
+
+// Remove a movie from movies watched
+function removeMovieFromMoviesWatched(movieToBeRemoved) {
+    state.user.moviesWatched = state.user.moviesWatched.filter((movie) => {
+        return movie.title !== movieToBeRemoved.title
+    })
+    calculateMinutesWatched()
+    updateUserInfo(state.user)
+}
+
+// Add a movie to watch later 
+function addMovieToWatchLater(movie) {
+    state.user.watchLater.push(movie)
+    updateUserInfo(state.user)
+}
+
+// Remove e movie from watch later
+function removeMovieFromWatchLater(movie) {
+    state.user.watchLater = state.user.watchLater.filter((movie) => {
+        return movie !== movie
+    })
+    updateUserInfo(state.user)
+
+}
+
+// Render Functions 
+// Render my Movies watched and watch later 
 function renderMyMovies() {
 
     const myMoviesDiv = document.createElement('div')
@@ -228,9 +258,10 @@ function renderMyMovies() {
     return myMoviesDiv
 }
 
+// Render a ul with similiar movies of that movie 
 function renderSimilarMovies(movieID) {
     const ulEl = document.createElement('ul')
-    getSimilarMovies(movieID).then(function (item) {
+    getSimilarMovies(movieID).then(function(item) {
         state.singleMovie.similar = item.results
     }).then(() => {
         for (const similarMovie of state.singleMovie.similar) {
@@ -240,9 +271,10 @@ function renderSimilarMovies(movieID) {
     return ulEl
 }
 
+// Render the behind the scenes videos of that movie
 function renderBehindTheScenes(movieID) {
     const ulEl = document.createElement('ul')
-    getBehindTheScenesData(movieID).then(function (item) {
+    getBehindTheScenesData(movieID).then(function(item) {
         state.singleMovie.behind = item.results
     }).then(() => {
         for (const behind of state.singleMovie.behind) {
@@ -252,7 +284,7 @@ function renderBehindTheScenes(movieID) {
     return ulEl
 }
 
-
+// Render each li for the behind the scenes function
 function renderBehindTheSceneElement(theScene) {
     const liEL = document.createElement('li')
     const video = document.createElement('div')
@@ -260,33 +292,11 @@ function renderBehindTheSceneElement(theScene) {
     video.innerHTML = `
     <iframe width="560" height="315" src="https://www.youtube.com/embed/${theScene.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     `
-    // <iframe width="560" height="315" src="https://www.youtube.com/embed/Ylufh8C79BI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        // <iframe width="560" height="315" src="https://www.youtube.com/embed/Ylufh8C79BI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     liEL.append(video)
     return liEL
 }
 
-
-// Update state.movies for each keyword on get Data and then render the Main Sections for each keyword
-function getMainMoviesInfo(keyword) {
-    // state.movies = []
-    getData(keyword, 1).then(function (item) {
-        return state.movies = item.results
-    }).then(() => {
-        main.append(renderMainSections(keyword))
-    })
-}
-
-// Update State Single Movie ID from Server
-function getSingleMovieInfo(movieID) {
-    getSingleMovieData(movieID).then(function (item) {
-        state.singleMovie.movie = item
-    }).then(() => {
-        render()
-    })
-
-}
-
-// Render Functions 
 // Render Movies List
 function renderMoviesList(movie) {
     const movieLiEl = document.createElement('li')
@@ -400,7 +410,6 @@ function renderMainSections(keyword) {
 
     const ulEl = document.createElement('ul')
 
-
     if (!state.searchTerm) {
         for (const movie of state.movies) {
             ulEl.append(renderMoviesList(movie))
@@ -430,7 +439,7 @@ function renderSingleMovie(movie) {
     moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
 
     let backdrop = false
-    moviePoster.addEventListener(`click`, function () {
+    moviePoster.addEventListener(`click`, function() {
         if (backdrop) {
             moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
             backdrop = !backdrop
@@ -540,7 +549,7 @@ function renderSingleMovie(movie) {
 
     const behindTheScenesTitle = document.createElement(`h2`)
     behindTheScenesTitle.setAttribute(`class`, `behind-the-scenes`)
-    behindTheScenesTitle.textContent = `Behind The Scenes`
+    behindTheScenesTitle.textContent = `Behind The Scenes and Trailers`
 
 
     similarMoviesDiv.append(similarTitle, renderSimilarMovies(movie.id))
@@ -548,6 +557,7 @@ function renderSingleMovie(movie) {
     main.append(divEl, behindTheScenesTitle, renderBehindTheScenes(movie.id), similarMoviesDiv, behindTheScenes)
 }
 
+// Render sign in modal
 function renderSignInModal() {
     const modal = document.querySelector('.modal')
 
