@@ -8,7 +8,7 @@
 }
 
 *::-webkit-scrollbar {
-    width: 7px;
+    width: 0px;
 }
 
 *::-webkit-scrollbar-track {
@@ -22,6 +22,7 @@
 
 body {
     background-color: #242325;
+    overflow-x: hidden;
 }
 
 header {
@@ -116,9 +117,10 @@ p {
 }
 
 ul {
-    display: grid;
     overflow-x: auto;
+    display: grid;
     grid-auto-flow: column;
+    place-content: baseline;
 }
 
 .infoPoster {
@@ -248,7 +250,7 @@ ul {
 .sign-out-button {
     margin-top: 1rem;
     border-radius: .3rem;
-    height: 1.5rem;
+    padding: .3rem .9rem;
     background-color: #242325;
     color: white;
     transition: .3s ease-in-out;
@@ -259,29 +261,26 @@ ul {
     background-color: black;
 }
 
-.show-my-movies{
+.show-my-movies,
+.delete-account {
     margin-top: 1rem;
     border-radius: .3rem;
-    height: 1.5rem;
     background-color: #242325;
     color: white;
     transition: .3s ease-in-out;
     cursor: pointer;
+    margin-right: 10px;
+    padding: .3rem .9rem;
 }
 
 .show-my-movies:hover {
     background-color: black;
 }
 
-.delete-account{
-    margin-top: 1rem;
-    border-radius: .3rem;
-    height: 1.5rem;
-    margin-left: 1rem;
+.delete-account {
     background-color: black;
     color: red;
-    transition: .3s ease-in-out;
-    cursor: pointer;
+    font-weight: 700;
 }
 
 .delete-account:hover {

@@ -11,7 +11,7 @@
     {
       "userName": "Endi",
       "password": "endi",
-      "minutesWatched": 1176,
+      "minutesWatched": 1473,
       "moviesWatched": [
         {
           "adult": false,
@@ -829,6 +829,234 @@
           "video": false,
           "vote_average": 7.3,
           "vote_count": 12869
+        },
+        {
+          "adult": false,
+          "backdrop_path": "/2WTO5FW8BT39fokxrJmzDgZqdWM.jpg",
+          "belongs_to_collection": {
+            "id": 1709,
+            "name": "Planet of the Apes (Original) Collection",
+            "poster_path": "/8aevArLEJHLk7MUe8pY0nrF9ViD.jpg",
+            "backdrop_path": "/oTABoCZSsPdcnGeT558bp1iFmEG.jpg"
+          },
+          "budget": 1700000,
+          "genres": [
+            {
+              "id": 28,
+              "name": "Action"
+            },
+            {
+              "id": 878,
+              "name": "Science Fiction"
+            }
+          ],
+          "homepage": "",
+          "id": 1705,
+          "imdb_id": "tt0069768",
+          "original_language": "en",
+          "original_title": "Battle for the Planet of the Apes",
+          "overview": "The fifth and final episode in the Planet of the Apes series. After the collapse of human civilization, a community of intelligent apes led by Caesar lives in harmony with a group of humans. Gorilla General Aldo tries to cause an ape civil war and a community of human mutants who live beneath a destroyed city try to conquer those whom they perceive as enemies. All leading to the finale.",
+          "popularity": 14.142,
+          "poster_path": "/vldhLVZ1H2CuUiRxDtZT4d3ivWJ.jpg",
+          "production_companies": [
+            {
+              "id": 22542,
+              "logo_path": null,
+              "name": "Apjac International",
+              "origin_country": ""
+            },
+            {
+              "id": 25,
+              "logo_path": "/qZCc1lty5FzX30aOCVRBLzaVmcp.png",
+              "name": "20th Century Fox",
+              "origin_country": "US"
+            }
+          ],
+          "production_countries": [
+            {
+              "iso_3166_1": "US",
+              "name": "United States of America"
+            }
+          ],
+          "release_date": "1973-06-15",
+          "revenue": 8844595,
+          "runtime": 93,
+          "spoken_languages": [
+            {
+              "english_name": "English",
+              "iso_639_1": "en",
+              "name": "English"
+            }
+          ],
+          "status": "Released",
+          "tagline": "The final chapter in the incredible Apes saga. The most suspenseful showdown ever filmed as two civilizations battle for the right to inherit what's left of the earth!",
+          "title": "Battle for the Planet of the Apes",
+          "video": false,
+          "vote_average": 5.8,
+          "vote_count": 617
+        },
+        {
+          "adult": false,
+          "backdrop_path": "/a8A9VecTAzRHdRH5fvwVcg0zGU0.jpg",
+          "belongs_to_collection": null,
+          "budget": 62000000,
+          "genres": [
+            {
+              "id": 878,
+              "name": "Science Fiction"
+            },
+            {
+              "id": 28,
+              "name": "Action"
+            },
+            {
+              "id": 53,
+              "name": "Thriller"
+            }
+          ],
+          "homepage": "",
+          "id": 8202,
+          "imdb_id": "tt0402022",
+          "original_language": "en",
+          "original_title": "Æon Flux",
+          "overview": "400 years into the future, disease has wiped out the majority of the world's population, except one walled city, Bregna, ruled by a congress of scientists. When Æon Flux, the top operative in the underground 'Monican' rebellion, is sent on a mission to kill a government leader, she uncovers a world of secrets.",
+          "popularity": 19.964,
+          "poster_path": "/9AeMjcnsKw5zG85RJI5gU2idp3O.jpg",
+          "production_companies": [
+            {
+              "id": 4,
+              "logo_path": "/fycMZt242LVjagMByZOLUGbCvv3.png",
+              "name": "Paramount",
+              "origin_country": "US"
+            },
+            {
+              "id": 126,
+              "logo_path": "/kADPanRDkKTxncPXXVahvHPUvCj.png",
+              "name": "Lakeshore Entertainment",
+              "origin_country": "US"
+            },
+            {
+              "id": 11533,
+              "logo_path": "/tWM9pmzVYxok4GbQIttxdcml1yT.png",
+              "name": "Valhalla Motion Pictures",
+              "origin_country": "US"
+            },
+            {
+              "id": 746,
+              "logo_path": "/kc7bdIVTBkJYy9aDK1QDDTAL463.png",
+              "name": "MTV Films",
+              "origin_country": "US"
+            },
+            {
+              "id": 11534,
+              "logo_path": null,
+              "name": "MTV Productions",
+              "origin_country": ""
+            },
+            {
+              "id": 6041,
+              "logo_path": null,
+              "name": "Colossal Pictures",
+              "origin_country": ""
+            }
+          ],
+          "production_countries": [
+            {
+              "iso_3166_1": "US",
+              "name": "United States of America"
+            }
+          ],
+          "release_date": "2005-11-30",
+          "revenue": 53321673,
+          "runtime": 93,
+          "spoken_languages": [
+            {
+              "english_name": "English",
+              "iso_639_1": "en",
+              "name": "English"
+            }
+          ],
+          "status": "Released",
+          "tagline": "The Perfect World Meets The Perfect Assassin",
+          "title": "Æon Flux",
+          "video": false,
+          "vote_average": 5.6,
+          "vote_count": 1706
+        },
+        {
+          "adult": false,
+          "backdrop_path": "/ldnt0O6Utnz9roPe15uzc91WNqT.jpg",
+          "belongs_to_collection": {
+            "id": 2883,
+            "name": "Kill Bill Collection",
+            "poster_path": "/tf1nUtw3LJGUGv1EFFi23iz6ngr.jpg",
+            "backdrop_path": "/oCLKNACMNrEf4T1EP6BpMXDl5m1.jpg"
+          },
+          "budget": 30000000,
+          "genres": [
+            {
+              "id": 28,
+              "name": "Action"
+            },
+            {
+              "id": 80,
+              "name": "Crime"
+            }
+          ],
+          "homepage": "http://www.miramax.com/movie/kill-bill-volume-1",
+          "id": 24,
+          "imdb_id": "tt0266697",
+          "original_language": "en",
+          "original_title": "Kill Bill: Vol. 1",
+          "overview": "An assassin is shot by her ruthless employer, Bill, and other members of their assassination circle – but she lives to plot her vengeance.",
+          "popularity": 33.401,
+          "poster_path": "/v7TaX8kXMXs5yFFGR41guUDNcnB.jpg",
+          "production_companies": [
+            {
+              "id": 14,
+              "logo_path": "/m6AHu84oZQxvq7n1rsvMNJIAsMu.png",
+              "name": "Miramax",
+              "origin_country": "US"
+            },
+            {
+              "id": 59,
+              "logo_path": "/yH7OMeSxhfP0AVM6iT0rsF3F4ZC.png",
+              "name": "A Band Apart",
+              "origin_country": "US"
+            }
+          ],
+          "production_countries": [
+            {
+              "iso_3166_1": "US",
+              "name": "United States of America"
+            }
+          ],
+          "release_date": "2003-10-10",
+          "revenue": 180899265,
+          "runtime": 111,
+          "spoken_languages": [
+            {
+              "english_name": "English",
+              "iso_639_1": "en",
+              "name": "English"
+            },
+            {
+              "english_name": "Japanese",
+              "iso_639_1": "ja",
+              "name": "日本語"
+            },
+            {
+              "english_name": "French",
+              "iso_639_1": "fr",
+              "name": "Français"
+            }
+          ],
+          "status": "Released",
+          "tagline": "A roaring rampage of revenge.",
+          "title": "Kill Bill: Vol. 1",
+          "video": false,
+          "vote_average": 8,
+          "vote_count": 14046
         }
       ],
       "watchLater": [
@@ -1060,6 +1288,188 @@
           "video": false,
           "vote_average": 6.7,
           "vote_count": 1368
+        },
+        {
+          "adult": false,
+          "backdrop_path": "/hv7o3VgfsairBoQFAawgaQ4cR1m.jpg",
+          "belongs_to_collection": {
+            "id": 2344,
+            "name": "The Matrix Collection",
+            "poster_path": "/bV9qTVHTVf0gkW0j7p7M0ILD4pG.jpg",
+            "backdrop_path": "/bRm2DEgUiYciDw3myHuYFInD7la.jpg"
+          },
+          "budget": 0,
+          "genres": [
+            {
+              "id": 28,
+              "name": "Action"
+            },
+            {
+              "id": 878,
+              "name": "Science Fiction"
+            },
+            {
+              "id": 10749,
+              "name": "Romance"
+            }
+          ],
+          "homepage": "https://www.whatisthematrix.com",
+          "id": 624860,
+          "imdb_id": "tt10838180",
+          "original_language": "en",
+          "original_title": "The Matrix Resurrections",
+          "overview": "Plagued by strange memories, Neo's life takes an unexpected turn when he finds himself back inside the Matrix.",
+          "popularity": 1483.037,
+          "poster_path": "/6aNRxxRjLF4xH2m2bLr4aC2rDea.jpg",
+          "production_companies": [
+            {
+              "id": 174,
+              "logo_path": "/IuAlhI9eVC9Z8UQWOIDdWRKSEJ.png",
+              "name": "Warner Bros. Pictures",
+              "origin_country": "US"
+            },
+            {
+              "id": 79,
+              "logo_path": "/tpFpsqbleCzEE2p5EgvUq6ozfCA.png",
+              "name": "Village Roadshow Pictures",
+              "origin_country": "US"
+            },
+            {
+              "id": 84764,
+              "logo_path": null,
+              "name": "Venus Castina Productions",
+              "origin_country": "US"
+            }
+          ],
+          "production_countries": [
+            {
+              "iso_3166_1": "DE",
+              "name": "Germany"
+            },
+            {
+              "iso_3166_1": "US",
+              "name": "United States of America"
+            }
+          ],
+          "release_date": "2021-12-16",
+          "revenue": 0,
+          "runtime": 148,
+          "spoken_languages": [
+            {
+              "english_name": "English",
+              "iso_639_1": "en",
+              "name": "English"
+            }
+          ],
+          "status": "Released",
+          "tagline": "Return to the source.",
+          "title": "The Matrix Resurrections",
+          "video": false,
+          "vote_average": 7.7,
+          "vote_count": 342
+        },
+        {
+          "adult": false,
+          "backdrop_path": "/eIi3klFf7mp3oL5EEF4mLIDs26r.jpg",
+          "belongs_to_collection": {
+            "id": 422837,
+            "name": "Blade Runner Collection",
+            "poster_path": "/qTcATCpiFDcgY8snQIfS2j0bFP7.jpg",
+            "backdrop_path": "/li3buIx57ph3RX5XlbpMzJPewZ0.jpg"
+          },
+          "budget": 28000000,
+          "genres": [
+            {
+              "id": 878,
+              "name": "Science Fiction"
+            },
+            {
+              "id": 18,
+              "name": "Drama"
+            },
+            {
+              "id": 53,
+              "name": "Thriller"
+            }
+          ],
+          "homepage": "http://www.warnerbros.com/blade-runner",
+          "id": 78,
+          "imdb_id": "tt0083658",
+          "original_language": "en",
+          "original_title": "Blade Runner",
+          "overview": "In the smog-choked dystopian Los Angeles of 2019, blade runner Rick Deckard is called out of retirement to terminate a quartet of replicants who have escaped to Earth seeking their creator for a way to extend their short life spans.",
+          "popularity": 34.842,
+          "poster_path": "/63N9uy8nd9j7Eog2axPQ8lbr3Wj.jpg",
+          "production_companies": [
+            {
+              "id": 5798,
+              "logo_path": "/tmuI9BGXgpWLmokhlxpnG3IGNQB.png",
+              "name": "Shaw Brothers",
+              "origin_country": "HK"
+            },
+            {
+              "id": 7965,
+              "logo_path": null,
+              "name": "The Ladd Company",
+              "origin_country": "US"
+            },
+            {
+              "id": 174,
+              "logo_path": "/IuAlhI9eVC9Z8UQWOIDdWRKSEJ.png",
+              "name": "Warner Bros. Pictures",
+              "origin_country": "US"
+            }
+          ],
+          "production_countries": [
+            {
+              "iso_3166_1": "US",
+              "name": "United States of America"
+            },
+            {
+              "iso_3166_1": "HK",
+              "name": "Hong Kong"
+            },
+            {
+              "iso_3166_1": "GB",
+              "name": "United Kingdom"
+            }
+          ],
+          "release_date": "1982-06-25",
+          "revenue": 41670166,
+          "runtime": 118,
+          "spoken_languages": [
+            {
+              "english_name": "English",
+              "iso_639_1": "en",
+              "name": "English"
+            },
+            {
+              "english_name": "German",
+              "iso_639_1": "de",
+              "name": "Deutsch"
+            },
+            {
+              "english_name": "Cantonese",
+              "iso_639_1": "cn",
+              "name": "广州话 / 廣州話"
+            },
+            {
+              "english_name": "Japanese",
+              "iso_639_1": "ja",
+              "name": "日本語"
+            },
+            {
+              "english_name": "Hungarian",
+              "iso_639_1": "hu",
+              "name": "Magyar"
+            }
+          ],
+          "status": "Released",
+          "tagline": "Man has made his match... now it's his problem.",
+          "title": "Blade Runner",
+          "video": false,
+          "vote_average": 7.9,
+          "vote_count": 10991
         }
       ],
       "id": 2

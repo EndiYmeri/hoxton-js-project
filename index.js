@@ -592,11 +592,13 @@ function renderSignInModal() {
             const inputNameEl = document.createElement('input')
             inputNameEl.setAttribute('type', 'text')
             inputNameEl.setAttribute('name', 'username')
+            inputNameEl.setAttribute('required', '')
             inputNameEl.setAttribute('placeholder', 'Write username')
 
             const inputPasswordEl = document.createElement('input')
             inputPasswordEl.setAttribute('type', 'password')
             inputPasswordEl.setAttribute('name', 'password')
+            inputPasswordEl.setAttribute('required', '')
             inputPasswordEl.setAttribute('placeholder', 'Write password')
 
             const signInButton = document.createElement('button')
