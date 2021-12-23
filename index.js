@@ -5,6 +5,7 @@ const state = {
     },
     keyword: ["upcoming", "popular", "top_rated"],
     signedIn: false,
+    showMyMovies: false,
     user: {},
     searchTerm: "",
 }
@@ -18,13 +19,13 @@ const body = document.querySelector(`body`)
 
 // Server Functions
 function getData(keyword, page) {
-    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308&page=${page}`).then(function (resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308&page=${page}`).then(function(resp) {
         return resp.json()
     })
 }
 
 function getSearchedMovies(searchTerm) {
-    return fetch(`http://api.themoviedb.org/3/search/movie/${searchTerm}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+    return fetch(`http://api.themoviedb.org/3/search/movie/${searchTerm}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
         return resp.json()
     })
 }
@@ -32,21 +33,21 @@ function getSearchedMovies(searchTerm) {
 
 // Get Single Movie Information
 function getSingleMovieData(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
         return resp.json()
     })
 }
 
 // Get Similar Movies
 function getSimilarMovies(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/similar?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/similar?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
         return resp.json()
     })
 }
 
 // Get Behind The Scenes
 function getBehindTheScenesData(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/videos?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/videos?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
         return resp.json()
     })
 }
@@ -69,7 +70,6 @@ function checkIfUserExists(username, pass) {
             if (user.userName === username && user.password === pass) {
                 userExists = true
                 state.user = user
-                // console.log("User Exists:" + user.userName + " with password: " + user.password)
             }
         })
 
@@ -88,6 +88,25 @@ function goHome() {
         movie: null
     }
     state.searchTerm = ""
+    state.showMyMovies = false
+    render()
+}
+
+function search(word) {
+    state.singleMovie = {
+        movie: null
+    }
+    state.showMyMovies = false
+    state.searchTerm = word
+    render()
+}
+
+function myMovies() {
+    state.singleMovie = {
+        movie: null
+    }
+    state.searchTerm = ""
+    state.showMyMovies = true
     render()
 }
 
@@ -119,6 +138,14 @@ function addUserToDB(user) {
         })
     })
 }
+
+function deleteAccount(user) {
+    fetch(`http://localhost:3000/users/${user.id}`, {
+        method: "DELETE",
+    })
+
+}
+
 
 function calculateMinutesWatched() {
     state.user.minutesWatched = 0
@@ -171,14 +198,41 @@ function updateUserInfo(user) {
     })
 }
 
+function renderMyMovies() {
 
+    const myMoviesDiv = document.createElement('div')
+
+    if (state.user.moviesWatched.length > 0) {
+        const ulEl = document.createElement('ul')
+        const sectionTitle = document.createElement('h1')
+        sectionTitle.setAttribute('class', 'section-title')
+        sectionTitle.textContent = "Movies Watched"
+
+        for (const movie of state.user.moviesWatched) {
+            ulEl.append(renderMoviesList(movie))
+        }
+        myMoviesDiv.append(sectionTitle, ulEl)
+    }
+
+    if (state.user.watchLater.length > 0) {
+        const ulEl = document.createElement('ul')
+        const sectionTitle = document.createElement('h1')
+        sectionTitle.setAttribute('class', 'section-title')
+        sectionTitle.textContent = "Watch Later"
+        for (const movie of state.user.watchLater) {
+            ulEl.append(renderMoviesList(movie))
+        }
+        myMoviesDiv.append(sectionTitle, ulEl)
+    }
+
+    return myMoviesDiv
+}
 
 function renderSimilarMovies(movieID) {
     const ulEl = document.createElement('ul')
-    getSimilarMovies(movieID).then(function (item) {
+    getSimilarMovies(movieID).then(function(item) {
         state.singleMovie.similar = item.results
     }).then(() => {
-
         for (const similarMovie of state.singleMovie.similar) {
             ulEl.append(renderMoviesList(similarMovie))
         }
@@ -188,10 +242,9 @@ function renderSimilarMovies(movieID) {
 
 function renderBehindTheScenes(movieID) {
     const ulEl = document.createElement('ul')
-    getBehindTheScenesData(movieID).then(function (item) {
+    getBehindTheScenesData(movieID).then(function(item) {
         state.singleMovie.behind = item.results
     }).then(() => {
-        console.log(state.singleMovie.behind)
         for (const behind of state.singleMovie.behind) {
             ulEl.append(renderBehindTheSceneElement(behind))
         }
@@ -207,7 +260,7 @@ function renderBehindTheSceneElement(theScene) {
     video.innerHTML = `
     <iframe width="560" height="315" src="https://www.youtube.com/embed/${theScene.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     `
-    // <iframe width="560" height="315" src="https://www.youtube.com/embed/Ylufh8C79BI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        // <iframe width="560" height="315" src="https://www.youtube.com/embed/Ylufh8C79BI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     liEL.append(video)
     return liEL
 }
@@ -216,7 +269,7 @@ function renderBehindTheSceneElement(theScene) {
 // Update state.movies for each keyword on get Data and then render the Main Sections for each keyword
 function getMainMoviesInfo(keyword) {
     // state.movies = []
-    getData(keyword, 1).then(function (item) {
+    getData(keyword, 1).then(function(item) {
         return state.movies = item.results
     }).then(() => {
         main.append(renderMainSections(keyword))
@@ -225,7 +278,7 @@ function getMainMoviesInfo(keyword) {
 
 // Update State Single Movie ID from Server
 function getSingleMovieInfo(movieID) {
-    getSingleMovieData(movieID).then(function (item) {
+    getSingleMovieData(movieID).then(function(item) {
         state.singleMovie.movie = item
     }).then(() => {
         render()
@@ -280,13 +333,8 @@ function renderHeader() {
 
     searchForm.append(searchEl, submitEl)
     searchForm.addEventListener('submit', (e) => {
-        console.log(searchEl.value)
         e.preventDefault()
-        state.singleMovie = {
-            movie: null
-        }
-        state.searchTerm = searchEl.value
-        render()
+        search(searchEl.value)
     })
 
     const accountDiv = document.createElement('div')
@@ -351,6 +399,8 @@ function renderMainSections(keyword) {
     }
 
     const ulEl = document.createElement('ul')
+
+
     if (!state.searchTerm) {
         for (const movie of state.movies) {
             ulEl.append(renderMoviesList(movie))
@@ -358,7 +408,6 @@ function renderMainSections(keyword) {
         sectionEl.append(sectionTitle, ulEl)
     } else {
         state.movies = state.movies.filter((element) => {
-            console.log(element.title)
             return element.title.toUpperCase().includes(state.searchTerm.toUpperCase())
         })
         for (const movie of state.movies) {
@@ -381,7 +430,7 @@ function renderSingleMovie(movie) {
     moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
 
     let backdrop = false
-    moviePoster.addEventListener(`click`, function () {
+    moviePoster.addEventListener(`click`, function() {
         if (backdrop) {
             moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
             backdrop = !backdrop
@@ -559,16 +608,37 @@ function renderSignInModal() {
             modalTitle.textContent = "SIGN OUT"
 
             const signOutP = document.createElement('p')
-            signOutP.textContent = `Hello ${state.user.userName}, would you like to sign out?`
+            signOutP.textContent = `Hello ${state.user.userName}, what would you like to do?`
 
+            const accountButtonsDiv = document.createElement('div')
+
+            const showMyMoviesButton = document.createElement('button')
+            showMyMoviesButton.textContent = "Show my movies"
+            showMyMoviesButton.addEventListener('click', () => {
+                myMovies()
+            })
+
+            const deleteMyAccountButton = document.createElement('button')
+            deleteMyAccountButton.textContent = "Delete account"
+            deleteMyAccountButton.addEventListener('click', () => {
+                deleteAccount(state.user)
+                state.signedIn = false
+                state.showMyMovies = false
+                state.user = {}
+                render()
+            })
+
+            accountButtonsDiv.append(showMyMoviesButton, deleteMyAccountButton)
             const signOutButton = document.createElement('button')
             signOutButton.setAttribute('class', 'button sign-out-button')
             signOutButton.textContent = "SIGN OUT"
             signOutButton.addEventListener('click', () => {
                 state.signedIn = false
+                state.showMyMovies = false
+                state.user = {}
                 render()
             })
-            modalInner.append(modalTitle, signOutP, signOutButton)
+            modalInner.append(modalTitle, signOutP, accountButtonsDiv, signOutButton)
             modalDiv.append(modalInner)
         }
 
@@ -581,9 +651,15 @@ function renderSignInModal() {
 // Render Main depending on state and state.keyword
 function renderMain() {
     main.innerHTML = ""
+
     if (!state.singleMovie.movie) {
-        for (const keyword of state.keyword) {
-            getMainMoviesInfo(keyword)
+
+        if (state.showMyMovies) {
+            main.append(renderMyMovies())
+        } else {
+            for (const keyword of state.keyword) {
+                getMainMoviesInfo(keyword)
+            }
         }
     } else {
         main.append(renderSingleMovie(state.singleMovie.movie))
