@@ -19,13 +19,13 @@ const body = document.querySelector(`body`)
 
 // Server Functions
 function getData(keyword, page) {
-    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308&page=${page}`).then(function(resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${keyword}?api_key=713b8a6c62fe6832204cde2d50900308&page=${page}`).then(function (resp) {
         return resp.json()
     })
 }
 
 function getSearchedMovies(searchTerm) {
-    return fetch(`http://api.themoviedb.org/3/search/movie/${searchTerm}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
+    return fetch(`http://api.themoviedb.org/3/search/movie/${searchTerm}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
         return resp.json()
     })
 }
@@ -33,21 +33,21 @@ function getSearchedMovies(searchTerm) {
 
 // Get Single Movie Information
 function getSingleMovieData(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
         return resp.json()
     })
 }
 
 // Get Similar Movies
 function getSimilarMovies(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/similar?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/similar?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
         return resp.json()
     })
 }
 
 // Get Behind The Scenes
 function getBehindTheScenesData(movieID) {
-    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/videos?api_key=713b8a6c62fe6832204cde2d50900308`).then(function(resp) {
+    return fetch(`http://api.themoviedb.org/3/movie/${movieID}/videos?api_key=713b8a6c62fe6832204cde2d50900308`).then(function (resp) {
         return resp.json()
     })
 }
@@ -230,7 +230,7 @@ function renderMyMovies() {
 
 function renderSimilarMovies(movieID) {
     const ulEl = document.createElement('ul')
-    getSimilarMovies(movieID).then(function(item) {
+    getSimilarMovies(movieID).then(function (item) {
         state.singleMovie.similar = item.results
     }).then(() => {
         for (const similarMovie of state.singleMovie.similar) {
@@ -242,7 +242,7 @@ function renderSimilarMovies(movieID) {
 
 function renderBehindTheScenes(movieID) {
     const ulEl = document.createElement('ul')
-    getBehindTheScenesData(movieID).then(function(item) {
+    getBehindTheScenesData(movieID).then(function (item) {
         state.singleMovie.behind = item.results
     }).then(() => {
         for (const behind of state.singleMovie.behind) {
@@ -260,7 +260,7 @@ function renderBehindTheSceneElement(theScene) {
     video.innerHTML = `
     <iframe width="560" height="315" src="https://www.youtube.com/embed/${theScene.key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     `
-        // <iframe width="560" height="315" src="https://www.youtube.com/embed/Ylufh8C79BI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    // <iframe width="560" height="315" src="https://www.youtube.com/embed/Ylufh8C79BI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     liEL.append(video)
     return liEL
 }
@@ -269,7 +269,7 @@ function renderBehindTheSceneElement(theScene) {
 // Update state.movies for each keyword on get Data and then render the Main Sections for each keyword
 function getMainMoviesInfo(keyword) {
     // state.movies = []
-    getData(keyword, 1).then(function(item) {
+    getData(keyword, 1).then(function (item) {
         return state.movies = item.results
     }).then(() => {
         main.append(renderMainSections(keyword))
@@ -278,7 +278,7 @@ function getMainMoviesInfo(keyword) {
 
 // Update State Single Movie ID from Server
 function getSingleMovieInfo(movieID) {
-    getSingleMovieData(movieID).then(function(item) {
+    getSingleMovieData(movieID).then(function (item) {
         state.singleMovie.movie = item
     }).then(() => {
         render()
@@ -430,7 +430,7 @@ function renderSingleMovie(movie) {
     moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
 
     let backdrop = false
-    moviePoster.addEventListener(`click`, function() {
+    moviePoster.addEventListener(`click`, function () {
         if (backdrop) {
             moviePoster.setAttribute('src', `https://image.tmdb.org/t/p/w500${movie.poster_path}`)
             backdrop = !backdrop
@@ -613,12 +613,14 @@ function renderSignInModal() {
             const accountButtonsDiv = document.createElement('div')
 
             const showMyMoviesButton = document.createElement('button')
-            showMyMoviesButton.textContent = "Show my movies"
+            showMyMoviesButton.setAttribute(`class`, `show-my-movies`)
+            showMyMoviesButton.textContent = "My Profile"
             showMyMoviesButton.addEventListener('click', () => {
                 myMovies()
             })
 
             const deleteMyAccountButton = document.createElement('button')
+            deleteMyAccountButton.setAttribute(`class`, `delete-account`)
             deleteMyAccountButton.textContent = "Delete account"
             deleteMyAccountButton.addEventListener('click', () => {
                 deleteAccount(state.user)

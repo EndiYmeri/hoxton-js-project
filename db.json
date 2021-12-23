@@ -1,10 +1,12 @@
 {
-    "users": [{
-        "id": 1,
-        "userName": "Adriano",
-        "password": "adriano",
-        "minutesWatched": 0,
-        "moviesWatched": [],
-        "watchLater": []
-    }]
+  "users": [
+    {
+      "id": 1,
+      "userName": "Adriano",
+      "password": "adriano",
+      "minutesWatched": 0,
+      "moviesWatched": [],
+      "watchLater": []
+    }
+  ]
 }
